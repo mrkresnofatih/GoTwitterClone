@@ -1,0 +1,30 @@
+package controller
+
+import (
+	"github.com/gorilla/mux"
+	"mrkresnofatihdev/apps/gotwittercloneapp/controller/playerhandlers"
+	"mrkresnofatihdev/apps/gotwittercloneapp/models"
+	"mrkresnofatihdev/apps/gotwittercloneapp/utils"
+	"net/http"
+)
+
+type PlayerController struct{}
+
+func (p *PlayerController) AddControllerTo(router *mux.Router) {
+	subRouter := &utils.ApplicationRouter{
+		Parent:     router,
+		PathPrefix: "/player",
+	}
+
+	createPlayerEndpoint := &utils.ApplicationEndpoint{
+		Handler: playerhandlers.CreatePlayerHandler,
+		Path:    "/create",
+		Method:  http.MethodPost,
+	}
+	createPlayerEndpointWithValidation := &utils.RequireValidation[models.PlayerCreateRequestModel]{
+		Endpoint: createPlayerEndpoint,
+	}
+	subRouter.AddEndpoint(createPlayerEndpointWithValidation)
+
+	subRouter.Init()
+}
