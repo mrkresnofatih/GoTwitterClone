@@ -13,7 +13,7 @@ func main() {
 	server.AddController(&controller.PlayerController{})
 	server.Initialize()
 
-	application.ResolveApplicationsOnClose()
+	defer application.ResolveApplicationsOnClose()
 
 	log.Print("Server running!")
 	log.Fatal(http.ListenAndServe(":8000", server.MainRouter))
