@@ -33,5 +33,12 @@ func (p *PlayerController) AddControllerTo(router *mux.Router) {
 	}
 	subRouter.AddEndpoint(validateCreatePlayerEndpoint)
 
+	loginPlayerEndpoint := &utils.ApplicationEndpoint{
+		Handler: playerhandlers.LoginPlayerHandler,
+		Path: "/login",
+		Method: http.MethodPost,
+	}
+	subRouter.AddEndpoint(loginPlayerEndpoint)
+
 	subRouter.Init()
 }

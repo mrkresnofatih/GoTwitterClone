@@ -11,10 +11,20 @@ type Player struct {
 
 func (s *Player) ToCreateResponseModel() PlayerCreateResponseModel {
 	return PlayerCreateResponseModel{
-		Username: s.Username,
-		FullName: s.FullName,
+		Username:  s.Username,
+		FullName:  s.FullName,
 		AvatarURL: s.AvatarURL,
-		Bio: s.Bio,
+		Bio:       s.Bio,
+		CreatedAt: s.CreatedAt,
+	}
+}
+
+func (s *Player) ToGetMinimumProfileResponseModel() PlayerGetMinimumProfileResponseModel {
+	return PlayerGetMinimumProfileResponseModel{
+		Username:  s.Username,
+		FullName:  s.FullName,
+		AvatarURL: s.AvatarURL,
+		Bio:       s.Bio,
 		CreatedAt: s.CreatedAt,
 	}
 }
@@ -38,4 +48,22 @@ type PlayerCreateResponseModel struct {
 	AvatarURL string `json:"avatarURL"`
 	Bio       string `json:"bio"`
 	CreatedAt int64  `json:"createdAt"`
+}
+
+type PlayerGetMinimumProfileResponseModel struct {
+	Username  string `json:"username"`
+	FullName  string `json:"fullName"`
+	AvatarURL string `json:"avatarURL"`
+	Bio       string `json:"bio"`
+	CreatedAt int64  `json:"createdAt"`
+}
+
+type PlayerLoginRequestModel struct {
+	Username string `json:"username" validate:"required"`
+	Password string `json:"password" validate:"required"`
+}
+
+type PlayerLoginResponseModel struct {
+	Token   string                               `json:"token"`
+	Profile PlayerGetMinimumProfileResponseModel `json:"profile"`
 }
