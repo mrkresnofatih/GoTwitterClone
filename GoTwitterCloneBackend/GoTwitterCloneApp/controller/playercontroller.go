@@ -38,7 +38,10 @@ func (p *PlayerController) AddControllerTo(router *mux.Router) {
 		Path: "/login",
 		Method: http.MethodPost,
 	}
-	subRouter.AddEndpoint(loginPlayerEndpoint)
+	loginPlayerWithValidation := &utils.RequireValidation[models.PlayerLoginRequestModel]{
+		Endpoint: loginPlayerEndpoint,
+	}
+	subRouter.AddEndpoint(loginPlayerWithValidation)
 
 	subRouter.Init()
 }

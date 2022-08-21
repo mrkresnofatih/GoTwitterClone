@@ -7,6 +7,7 @@ import (
 	validator2 "github.com/go-playground/validator/v10"
 	"github.com/gorilla/mux"
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -117,9 +118,8 @@ func (s *RequireValidation[T]) GetHandler() HandlerFunc {
 				return
 			}
 
-			for _, err := range err.(validator2.ValidationErrors) {
-				fmt.Println(err)
-			}
+			errors := err.(validator2.ValidationErrors)
+			log.Println(errors)
 
 			responseHelper.SetJsonResponse(http.StatusBadRequest, []string{
 				"request_body_validation_failed",
