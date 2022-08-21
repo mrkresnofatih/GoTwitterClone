@@ -20,10 +20,5 @@ func ValidateCreatePlayerHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	errorList := playerservice.ValidateCreatePlayer(r.Context(), createPlayerReq)
-
-	isPlayerExists := playerservice.GetPlayerExists(r.Context(), createPlayerReq.Username)
-	if isPlayerExists {
-		errorList = append(errorList, "player_username_exists")
-	}
 	responseHelper.SetJsonResponse(http.StatusOK, errorList)
 }
