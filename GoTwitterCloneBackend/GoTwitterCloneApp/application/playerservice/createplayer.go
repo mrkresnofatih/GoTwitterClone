@@ -2,6 +2,7 @@ package playerservice
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"mrkresnofatihdev/apps/gotwittercloneapp/application"
 	"mrkresnofatihdev/apps/gotwittercloneapp/models"
@@ -11,15 +12,23 @@ import (
 
 const defaultAvatarUrl = "https://cdn.iconscout.com/icon/free/png-256/avatar-372-456324.png"
 const defaultBioFormat = "Hi, I'm %s!"
-const playerCollectionFormat = "players#%s"
-const playerCredentialsCollectionFormat = "players-cred#%s"
+
+const playerKeyFormat = "players#%s"
+const playerCredentialsKeyFormat = "players-cred#%s"
 
 func CreatePlayer(ctx context.Context, createRequest models.PlayerCreateRequestModel) (models.PlayerCreateResponseModel, error) {
 	returnDefaultsOnError := func(err error) (models.PlayerCreateResponseModel, error) {
 		return *new(models.PlayerCreateResponseModel), err
 	}
 
+	isPlayerUsernameTaken := GetPlayerExists(ctx, createRequest.Username)
+	if isPlayerUsernameTaken {
+		return returnDefaultsOnError(errors.New("player_username_taken"))
+	}
+
 	fireStr := application.GetFirestoreInstance()
+	playerKey := fmt.Sprintf(playerKeyFormat, createRequest.Username)
+	playerCredKey := fmt.Sprintf(playerCredentialsKeyFormat, createRequest.Username)
 
 	newPlayerInfo := models.Player{
 		Username: createRequest.Username,
@@ -40,19 +49,17 @@ func CreatePlayer(ctx context.Context, createRequest models.PlayerCreateRequestM
 		Password: hashUtil.GetHashData(createRequest.Password),
 	}
 
-	playerCredCollectionName := fmt.Sprintf(playerCredentialsCollectionFormat, createRequest.Username)
 	_, err := fireStr.
-		Collection(playerCredCollectionName).
-		Doc(newPlayerInfo.Username).
+		Collection(playerKey).
+		Doc(playerCredKey).
 		Set(ctx, newPlayerCredentials)
 	if err != nil {
 		return returnDefaultsOnError(err)
 	}
 
-	playerCollectionName := fmt.Sprintf(playerCollectionFormat, createRequest.Username)
 	_, err = fireStr.
-		Collection(playerCollectionName).
-		Doc(newPlayerInfo.Username).
+		Collection(playerKey).
+		Doc(playerKey).
 		Set(ctx, newPlayerInfo)
 	if err != nil {
 		return returnDefaultsOnError(err)
