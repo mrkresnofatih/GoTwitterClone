@@ -20,7 +20,14 @@ func (s *RequireAuthentication) GetHandler() HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		responseHelper := ResponseHelper{Writer: w}
 		authorizationValue := r.Header.Get(HttpHeaderKeyAuthorization)
-		jwtToken := authorizationValue[:7]
+		if len(authorizationValue) == 0 {
+			responseHelper.SetJsonResponse(http.StatusBadRequest, []string{
+				"Auth_Failed",
+			})
+			return
+		}
+
+		jwtToken := authorizationValue[7:] // removes Bearer
 		isJwtTokenValid := GetValidityFromToken(jwtToken)
 		if isJwtTokenValid {
 			s.Endpoint.GetHandler()(w, r)
@@ -58,8 +65,10 @@ func (s *RequirePermission) GetHandler() HandlerFunc {
 		responseHelper := ResponseHelper{Writer: w}
 		authorizationValue := r.Header.Get(HttpHeaderKeyAuthorization)
 		jwtToken := authorizationValue[:7]
+
+		tokenIsValid := GetValidityFromToken(jwtToken)
 		permissionExists := GetPermissionExistsFromToken(jwtToken, s.Permission)
-		if permissionExists {
+		if permissionExists && tokenIsValid {
 			s.Endpoint.GetHandler()(w, r)
 		} else {
 			responseHelper.SetJsonResponse(http.StatusBadRequest, []string{

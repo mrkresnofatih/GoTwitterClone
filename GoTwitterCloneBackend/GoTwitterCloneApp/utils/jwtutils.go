@@ -3,6 +3,7 @@ package utils
 import (
 	"errors"
 	"github.com/golang-jwt/jwt/v4"
+	"log"
 	"time"
 )
 
@@ -24,7 +25,7 @@ type BasicJwtTokenBuilder struct {
 
 func (s *BasicJwtTokenBuilder) initialize() {
 	s.Claims = jwt.MapClaims{}
-	s.Claims[applicationJwtClaimsKeyExpiresAt] = time.Now().Add(s.ExpiresAfter)
+	s.Claims[applicationJwtClaimsKeyExpiresAt] = time.Now().Add(s.ExpiresAfter).Format(time.RFC3339)
 }
 
 func (s *BasicJwtTokenBuilder) Build() (string, error) {
@@ -97,7 +98,24 @@ func GetValidityFromToken(tokenString string) bool {
 	if err != nil {
 		return false
 	}
-	return token.Valid
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		claimValue := claims[applicationJwtClaimsKeyExpiresAt]
+		if claimValue == nil {
+			return false
+		}
+
+		tokenExpireTime, err := time.Parse(time.RFC3339, claimValue.(string))
+		if err != nil {
+			log.Println("error here")
+			return false
+		}
+		expired := time.Now().After(tokenExpireTime)
+		if expired {
+			log.Println("token is expired!")
+		}
+		return !expired
+	}
+	return false
 }
 
 func GetClaimFromToken[T any](tokenString string, claimType string) (T, error) {
