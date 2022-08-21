@@ -9,14 +9,17 @@ import (
 func ValidateCreatePlayer(ctx context.Context, createRequest models.PlayerCreateRequestModel) []string {
 	validator := validator2.New()
 	err := validator.Struct(createRequest)
+	var listOfErrorMsg []string
 	if err != nil {
-		var listOfErrorMsg []string
 		listOfErrors := err.(validator2.ValidationErrors)
 		for _, er := range listOfErrors {
 			listOfErrorMsg = append(listOfErrorMsg, er.Error())
 		}
-
-		return listOfErrorMsg
 	}
-	return []string{}
+
+	isPlayerExists := GetPlayerExists(ctx, createRequest.Username)
+	if isPlayerExists {
+		listOfErrorMsg = append(listOfErrorMsg, "player_username_exists")
+	}
+	return listOfErrorMsg
 }

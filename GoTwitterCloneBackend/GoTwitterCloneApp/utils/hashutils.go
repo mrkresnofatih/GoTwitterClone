@@ -1,6 +1,8 @@
 package utils
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"golang.org/x/crypto/bcrypt"
+)
 
 type IHashUtility interface {
 	GetHashData(string) string
@@ -36,5 +38,5 @@ func (s *HashUserPasswordStrategy) ExecuteGetHashData(data string) string {
 
 func (s *HashUserPasswordStrategy) ExecuteGetIsCompareHashValid(hashedData, data string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hashedData), []byte(data +hashUserPasswordSalt))
-	return err != nil
+	return err == nil
 }
