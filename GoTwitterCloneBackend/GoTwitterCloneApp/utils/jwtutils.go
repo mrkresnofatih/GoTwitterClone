@@ -9,7 +9,7 @@ import (
 
 const applicationJwtSecret = "XETV82XMyGtMjCpJJZMqo1LCxjjYSkYdsIhtYfTsgiW4C9SPGe2FZd8DEXu7"
 const applicationJwtClaimsKeyExpiresAt = "t-expiresAt"
-const applicationJwtClaimsKeyUsername = "t-username"
+const ApplicationJwtClaimsKeyUsername = "t-username"
 const applicationJwtClaimsKeyPermissions = "t-permissions"
 
 type IJwtTokenBuilder interface {
@@ -50,7 +50,7 @@ type UsernameJwtTokenBuilder struct {
 func (s *UsernameJwtTokenBuilder) initialize() {
 	s.JwtTokenBuilder.initialize()
 	claims := *(s.JwtTokenBuilder.GetClaims())
-	claims[applicationJwtClaimsKeyUsername] = s.Username
+	claims[ApplicationJwtClaimsKeyUsername] = s.Username
 }
 
 func (s *UsernameJwtTokenBuilder) Build() (string, error) {

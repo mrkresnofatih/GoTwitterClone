@@ -31,10 +31,7 @@ func (p *PlayerController) AddControllerTo(router *mux.Router) {
 		Path: "/validate",
 		Method: http.MethodPost,
 	}
-	validateEndpointWithAuth := &utils.RequireAuthentication{
-		Endpoint: validateCreatePlayerEndpoint,
-	}
-	subRouter.AddEndpoint(validateEndpointWithAuth)
+	subRouter.AddEndpoint(validateCreatePlayerEndpoint)
 
 	loginPlayerEndpoint := &utils.ApplicationEndpoint{
 		Handler: playerhandlers.LoginPlayerHandler,

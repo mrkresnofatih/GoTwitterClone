@@ -35,6 +35,26 @@ type PlayerCredentials struct {
 	Password string `json:"password" firestore:"password,omitempty"`
 }
 
+type PlayerSocialStats struct {
+	Username        string `json:"username" firestore:"username,omitempty"`
+	NumOfFollowers  int64  `json:"numOfFollowers" firestore:"numOfFollowers"`
+	NumOfFollowings int64  `json:"numOfFollowings" firestore:"numOfFollowings"`
+}
+
+type PlayerUpdateSocialStatsType string
+
+const (
+	IncrementFollowerUpdateSocialStatsType  PlayerUpdateSocialStatsType = "INCREMENT_FOLLOWER"
+	DecrementFollowerUpdateSocialStatsType  PlayerUpdateSocialStatsType = "DECREMENT_FOLLOWER"
+	IncrementFollowingUpdateSocialStatsType PlayerUpdateSocialStatsType = "INCREMENT_FOLLOWING"
+	DecrementFollowingUpdateSocialStatsType PlayerUpdateSocialStatsType = "DECREMENT_FOLLOWING"
+)
+
+type PlayerUpdateSocialStatsRequestModel struct {
+	Username   string
+	UpdateType PlayerUpdateSocialStatsType
+}
+
 type PlayerCreateRequestModel struct {
 	Email    string `json:"email" validate:"required,email"`
 	Username string `json:"username" validate:"required"`

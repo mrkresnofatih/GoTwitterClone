@@ -2,6 +2,7 @@ package application
 
 import (
 	"cloud.google.com/go/firestore"
+	"context"
 	"log"
 )
 
@@ -10,8 +11,8 @@ var firestoreInstance *firestore.Client
 func GetFirestoreInstance() *firestore.Client {
 	if firestoreInstance == nil {
 		firebaseApp := GetFirebaseInstance()
-		firebaseCtxInstance := getFirebaseContextInstance()
-		client, err := firebaseApp.Firestore(*firebaseCtxInstance)
+		firebaseCtxInstance := context.Background()
+		client, err := firebaseApp.Firestore(firebaseCtxInstance)
 		if err != nil {
 			log.Fatalln(err)
 		}

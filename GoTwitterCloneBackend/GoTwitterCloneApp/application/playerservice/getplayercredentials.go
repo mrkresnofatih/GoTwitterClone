@@ -15,7 +15,7 @@ func GetPlayerCredentials(ctx context.Context, username string) (models.PlayerCr
 
 	fireStr := application.GetFirestoreInstance()
 
-	playerKey := fmt.Sprintf(playerKeyFormat, username)
+	playerKey := fmt.Sprintf(PlayerKeyFormat, username)
 	playerCredentialsKey := fmt.Sprintf(playerCredentialsKeyFormat, username)
 
 	foundRecord, err := fireStr.
