@@ -33,7 +33,7 @@ func LoginPlayer(ctx context.Context, loginReq models.PlayerLoginRequestModel) (
 	}
 
 	tokenBuilder := utils.BasicJwtTokenBuilder{
-		ExpiresAfter: time.Minute * 1,
+		ExpiresAfter: time.Hour * 1,
 	}
 	tokenWithUsrBuilder := utils.UsernameJwtTokenBuilder{
 		Username:        loginReq.Username,

@@ -13,9 +13,10 @@ import (
 const defaultAvatarUrl = "https://cdn.iconscout.com/icon/free/png-256/avatar-372-456324.png"
 const defaultBioFormat = "Hi, I'm %s!"
 
-const playerKeyFormat = "players#%s"
+const PlayerKeyFormat = "players#%s"
 const playerProfileKeyFormat = "players-profile#%s"
 const playerCredentialsKeyFormat = "players-cred#%s"
+const PlayerSocialStatsKeyFormat = "players-social-stats#%s"
 
 func CreatePlayer(ctx context.Context, createRequest models.PlayerCreateRequestModel) (models.PlayerCreateResponseModel, error) {
 	returnDefaultsOnError := func(err error) (models.PlayerCreateResponseModel, error) {
@@ -28,9 +29,10 @@ func CreatePlayer(ctx context.Context, createRequest models.PlayerCreateRequestM
 	}
 
 	fireStr := application.GetFirestoreInstance()
-	playerKey := fmt.Sprintf(playerKeyFormat, createRequest.Username)
+	playerKey := fmt.Sprintf(PlayerKeyFormat, createRequest.Username)
 	playerProfileKey := fmt.Sprintf(playerProfileKeyFormat, createRequest.Username)
 	playerCredKey := fmt.Sprintf(playerCredentialsKeyFormat, createRequest.Username)
+	playerSocialStatsKey := fmt.Sprintf(PlayerSocialStatsKeyFormat, createRequest.Username)
 
 	newPlayerInfo := models.Player{
 		Username: createRequest.Username,
@@ -51,6 +53,12 @@ func CreatePlayer(ctx context.Context, createRequest models.PlayerCreateRequestM
 		Password: hashUtil.GetHashData(createRequest.Password),
 	}
 
+	newPlayerSocialStats := models.PlayerSocialStats{
+		Username: createRequest.Username,
+		NumOfFollowers: 0,
+		NumOfFollowings: 0,
+	}
+
 	_, err := fireStr.
 		Collection(playerKey).
 		Doc(playerCredKey).
@@ -63,6 +71,14 @@ func CreatePlayer(ctx context.Context, createRequest models.PlayerCreateRequestM
 		Collection(playerKey).
 		Doc(playerProfileKey).
 		Set(ctx, newPlayerInfo)
+	if err != nil {
+		return returnDefaultsOnError(err)
+	}
+
+	_, err = fireStr.
+		Collection(playerKey).
+		Doc(playerSocialStatsKey).
+		Set(ctx, newPlayerSocialStats)
 	if err != nil {
 		return returnDefaultsOnError(err)
 	}

@@ -15,7 +15,7 @@ func GetPlayerMinimumProfile(ctx context.Context, username string) (models.Playe
 
 	fireStr := application.GetFirestoreInstance()
 
-	playerKey := fmt.Sprintf(playerKeyFormat, username)
+	playerKey := fmt.Sprintf(PlayerKeyFormat, username)
 	playerProfileKey := fmt.Sprintf(playerProfileKeyFormat, username)
 	foundRecord, err := fireStr.
 		Collection(playerKey).

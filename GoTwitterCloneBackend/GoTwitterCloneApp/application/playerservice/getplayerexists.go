@@ -8,7 +8,7 @@ import (
 
 func GetPlayerExists(ctx context.Context, username string) bool {
 	fireStr := application.GetFirestoreInstance()
-	playerKey := fmt.Sprintf(playerKeyFormat, username)
+	playerKey := fmt.Sprintf(PlayerKeyFormat, username)
 	playerProfileKey := fmt.Sprintf(playerProfileKeyFormat, username)
 	player, err := fireStr.
 		Collection(playerKey).

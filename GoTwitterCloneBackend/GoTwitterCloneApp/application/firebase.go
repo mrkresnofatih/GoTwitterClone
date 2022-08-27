@@ -9,21 +9,11 @@ import (
 
 var firebaseInstance *firebase.App
 
-var firebaseCtxInstance *context.Context
-
-func getFirebaseContextInstance() *context.Context {
-	if firebaseCtxInstance == nil {
-		ctx := context.Background()
-		firebaseCtxInstance = &ctx
-	}
-	return firebaseCtxInstance
-}
-
 func GetFirebaseInstance() *firebase.App {
 	if firebaseInstance == nil {
-		ctx := getFirebaseContextInstance()
+		ctx := context.Background()
 		sa := option.WithCredentialsFile("firebase_conf.json")
-		app, err := firebase.NewApp(*ctx, nil, sa)
+		app, err := firebase.NewApp(ctx, nil, sa)
 		if err != nil {
 			log.Fatalln(err)
 		}

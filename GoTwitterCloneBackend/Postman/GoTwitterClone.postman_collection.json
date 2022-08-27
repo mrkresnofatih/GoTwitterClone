@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "3d2d1b45-d0ed-4b00-9dee-31cd7a5e47af",
+		"name": "GoTwitterClone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13142924"
+	},
+	"item": [
+		{
+			"name": "Player",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"lumpydog212\",\r\n    \"fullName\": \"John Doe\",\r\n    \"email\": \"johndoe@gmail.com\",\r\n    \"password\": \"Pwd123#\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{httpType}}://{{domain}}/{{playerControllerPrefix}}/create",
+							"protocol": "{{httpType}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"{{playerControllerPrefix}}",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"lycheedriver4\",\r\n    \"password\": \"Pwd123#\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{httpType}}://{{domain}}/{{playerControllerPrefix}}/login",
+							"protocol": "{{httpType}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"{{playerControllerPrefix}}",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"lycheedriver4\",\r\n    \"fullName\": \"John Doe\",\r\n    \"email\": \"johndoe@gmail.com\",\r\n    \"password\": \"Pwd123#\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{httpType}}://{{domain}}/{{playerControllerPrefix}}/validate",
+							"protocol": "{{httpType}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"{{playerControllerPrefix}}",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Follow",
+			"item": [
+				{
+					"name": "StartFollowing",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMjdUMTU6NTc6MjUrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.982b7etsbr6xN-xD9HsWrb6ZXVQh7IR_PIRz2R0b9NQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{httpType}}://{{domain}}/{{followControllerPrefix}}/start/locobunny1",
+							"protocol": "{{httpType}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"{{followControllerPrefix}}",
+								"start",
+								"locobunny1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StopFollowing",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMjdUMTY6MTA6MzUrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.lfRQEPO94iLqa_hKzhn8RcQAQH-IbXcpoUmke_wKgPk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{httpType}}://{{domain}}/{{followControllerPrefix}}/stop/locobunny1",
+							"protocol": "{{httpType}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"{{followControllerPrefix}}",
+								"stop",
+								"locobunny1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

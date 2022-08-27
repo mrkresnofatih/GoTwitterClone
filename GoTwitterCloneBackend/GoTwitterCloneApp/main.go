@@ -10,6 +10,7 @@ import (
 
 func main() {
 	server := utils.ApplicationServer{}
+	server.AddController(&controller.FollowController{})
 	server.AddController(&controller.PlayerController{})
 	server.Initialize()
 
