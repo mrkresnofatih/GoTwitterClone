@@ -12,6 +12,12 @@ import (
 )
 
 func StopFollowing(ctx context.Context, followRequest models.FollowRequestModel) error {
+	alreadyFollowing := GetIsAlreadyFollowing(ctx, followRequest)
+	if !alreadyFollowing {
+		log.Println("hasn't followed yet")
+		return nil
+	}
+
 	returnDefaultsOnError := func(err error) error {
 		log.Println("failed: " + err.Error())
 		return err

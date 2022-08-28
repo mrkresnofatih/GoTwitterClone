@@ -16,6 +16,12 @@ const followingListKeyFormat = "following-list#%s"
 const startsWithKeyFormat = "startsWith#%s"
 
 func StartFollowing(ctx context.Context, followRequest models.FollowRequestModel) error {
+	alreadyFollowing := GetIsAlreadyFollowing(ctx, followRequest)
+	if alreadyFollowing {
+		log.Println("already following!")
+		return nil
+	}
+
 	followerListExists := GetFollowerListExists(ctx, followRequest)
 	if !followerListExists {
 		log.Println("follower list exists")
