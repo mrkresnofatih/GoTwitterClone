@@ -12,6 +12,7 @@ func main() {
 	server := utils.ApplicationServer{}
 	server.AddController(&controller.FollowController{})
 	server.AddController(&controller.PlayerController{})
+	server.AddController(&controller.TweetController{})
 	server.Initialize()
 
 	defer application.ResolveApplicationsOnClose()
