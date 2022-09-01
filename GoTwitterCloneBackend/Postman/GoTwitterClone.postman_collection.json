@@ -106,7 +106,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMjdUMTU6NTc6MjUrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.982b7etsbr6xN-xD9HsWrb6ZXVQh7IR_PIRz2R0b9NQ",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMjhUMDc6NTY6MDQrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.9Iu-WjIQVEI0GnMwrCsSCpaReIRCWglimAjoWH8TXAs",
 									"type": "string"
 								}
 							]
@@ -136,7 +136,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMjdUMTY6MTA6MzUrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.lfRQEPO94iLqa_hKzhn8RcQAQH-IbXcpoUmke_wKgPk",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMjhUMDc6NTY6MDQrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.9Iu-WjIQVEI0GnMwrCsSCpaReIRCWglimAjoWH8TXAs",
 									"type": "string"
 								}
 							]
@@ -153,6 +153,163 @@
 								"{{followControllerPrefix}}",
 								"stop",
 								"locobunny1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tweet",
+			"item": [
+				{
+					"name": "PostTweet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMjhUMTI6MzU6MDkrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.BlOJ4OtjPcMC39Z0VF3RSHC-UhvSKGkzzM-EmtdyV5k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message\": \"hello world! im lycheedriver4\",\r\n    \"imageURL\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{httpType}}://{{domain}}/{{tweetControllerPrefix}}/post",
+							"protocol": "{{httpType}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"{{tweetControllerPrefix}}",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostReply",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMzFUMDc6Mjg6NDArMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.Zqz3keFwJaYtEoXjz1IAsVpURGpBdQuQkOxJ7emXQLI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tweetId\": \"tweet#lycheedriver4#74de7caa-fcaa-4238-939e-5543b79365f3\",\r\n    \"username\": \"lycheedriver4\",\r\n    \"message\": \"test reply a quote of a quote\",\r\n    \"imageURL\": \"https://www.merdeka.com/trending/25-meme-lucu-terbaru-bikin-ngakak-cocok-jadi-penghilang-penat-amp-stres-setiap-hari.html\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{httpType}}://{{domain}}/{{tweetControllerPrefix}}/reply",
+							"protocol": "{{httpType}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"{{tweetControllerPrefix}}",
+								"reply"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostRetweet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMzFUMDg6MTU6NDkrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.Ac_dv6HWAigQwRk7roItfPXLckTy95PNqe9JFYisJFA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tweetId\": \"tweet#lycheedriver4#68e8f21c-3290-4d50-9074-084d4d42f99d\",\r\n    \"username\": \"lycheedriver4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{httpType}}://{{domain}}/{{tweetControllerPrefix}}/retweet",
+							"protocol": "{{httpType}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"{{tweetControllerPrefix}}",
+								"retweet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostQuote",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMzFUMDg6Mjg6NTIrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.8mjexEdvKhCrFgx6fNpws0m0dCpj8uvxBHviBZszksE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tweetId\": \"tweet#lycheedriver4#68e8f21c-3290-4d50-9074-084d4d42f99d\",\r\n    \"username\": \"lycheedriver4\",\r\n    \"message\": \"this is a quote of a reply02.\",\r\n    \"imageURL\": \"https://www.merdeka.com/trending/25-meme-lucu-terbaru-bikin-ngakak-cocok-jadi-penghilang-penat-amp-stres-setiap-hari.html\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{httpType}}://{{domain}}/{{tweetControllerPrefix}}/quote",
+							"protocol": "{{httpType}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"{{tweetControllerPrefix}}",
+								"quote"
 							]
 						}
 					},
