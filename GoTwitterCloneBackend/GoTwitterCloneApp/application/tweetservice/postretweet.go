@@ -30,6 +30,17 @@ func PostRetweet(ctx context.Context, retweetReq models.TweetRetweetRequestModel
 		return returnDefaultsOnError(errors.New("target tweet doesnt exist"))
 	}
 
+	retweetActorData := models.TweetRetweetActorModel{
+		TweetId: retweetReq.TweetId,
+		TweetOwnerUsername: retweetReq.Username,
+		ActorUsername: username,
+	}
+	alreadyRetweetedBefore := RetweetActorRecordExists(ctx, retweetActorData)
+	if alreadyRetweetedBefore {
+		log.Println("already retweeted this before")
+		return returnDefaultsOnError(errors.New("already retweeted this before"))
+	}
+
 	targetTweet, err := GetTweet(ctx, getTweetReq)
 	if err != nil {
 		log.Println("failed to get tweet")
@@ -74,6 +85,12 @@ func PostRetweet(ctx context.Context, retweetReq models.TweetRetweetRequestModel
 		return returnDefaultsOnError(errors.New("failed to save tweet"))
 	}
 	log.Println("finished saving retweet to db")
+
+	err = RecordRetweetActor(ctx, retweetActorData)
+	if err != nil {
+		log.Println("failed to save retweet actor data")
+		return returnDefaultsOnError(err)
+	}
 	return newTweet, nil
 }
 

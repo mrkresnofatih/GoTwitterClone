@@ -42,3 +42,9 @@ type TweetGetRequestModel struct {
 	Username string `json:"username" validate:"required,max=30"`
 	TweetId  string `json:"tweetId" validate:"required,max=100"`
 }
+
+type TweetRetweetActorModel struct {
+	TweetId            string `json:"tweetId" firestore:"tweetId,omitempty"`
+	ActorUsername      string `json:"actorUsername" firestore:"actorUsername,omitempty"`
+	TweetOwnerUsername string `json:"tweetOwnerUsername" firestore:"tweetOwnerUsername,omitempty"`
+}
