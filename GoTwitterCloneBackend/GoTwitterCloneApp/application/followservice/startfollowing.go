@@ -24,7 +24,7 @@ func StartFollowing(ctx context.Context, followRequest models.FollowRequestModel
 
 	followerListExists := GetFollowerListExists(ctx, followRequest)
 	if !followerListExists {
-		log.Println("follower list exists")
+		log.Println("follower list doesn't exist")
 		err := InitializeFollowerList(ctx, followRequest)
 		if err != nil {
 			log.Println("InitializeFollowerList failed: " + err.Error())
