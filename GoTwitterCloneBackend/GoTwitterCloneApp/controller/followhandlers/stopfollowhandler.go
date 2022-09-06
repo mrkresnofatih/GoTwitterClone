@@ -2,7 +2,8 @@ package followhandlers
 
 import (
 	"github.com/gorilla/mux"
-	"mrkresnofatihdev/apps/gotwittercloneapp/application/followservice"
+	"mrkresnofatihdev/apps/gotwittercloneapp/events"
+	"mrkresnofatihdev/apps/gotwittercloneapp/events/eventhandlers"
 	"mrkresnofatihdev/apps/gotwittercloneapp/models"
 	"mrkresnofatihdev/apps/gotwittercloneapp/utils"
 	"net/http"
@@ -29,15 +30,6 @@ func StopFollowHandler(w http.ResponseWriter, r *http.Request) {
 		FollowerUsername: requesterUsername,
 	}
 
-	err = followservice.StopFollowing(r.Context(), stopFollowRequest)
-	if err != nil {
-		responseHelper.SetJsonResponse(http.StatusBadRequest, []string{
-			"failed_unfollowing",
-		})
-		return
-	}
-
+	events.PublishEventMessage(r.Context(), eventhandlers.UnfollowEventHandlerName, stopFollowRequest)
 	responseHelper.SetJsonResponse(http.StatusOK, nil)
-
-
 }
