@@ -3,7 +3,6 @@ package followhandlers
 import (
 	"github.com/gorilla/mux"
 	"mrkresnofatihdev/apps/gotwittercloneapp/events"
-	"mrkresnofatihdev/apps/gotwittercloneapp/events/eventhandlers"
 	"mrkresnofatihdev/apps/gotwittercloneapp/models"
 	"mrkresnofatihdev/apps/gotwittercloneapp/utils"
 	"net/http"
@@ -30,6 +29,6 @@ func StopFollowHandler(w http.ResponseWriter, r *http.Request) {
 		FollowerUsername: requesterUsername,
 	}
 
-	events.PublishEventMessage(r.Context(), eventhandlers.UnfollowEventHandlerName, stopFollowRequest)
+	events.PublishEventMessage(r.Context(), events.UnfollowEventHandlerName, stopFollowRequest)
 	responseHelper.SetJsonResponse(http.StatusOK, nil)
 }
