@@ -1,23 +1,15 @@
 package main
 
 import (
-	log "log"
-	"mrkresnofatihdev/apps/gotwittercloneapp/application"
 	"mrkresnofatihdev/apps/gotwittercloneapp/controller"
-	utils "mrkresnofatihdev/apps/gotwittercloneapp/utils"
-	http "net/http"
+	"mrkresnofatihdev/apps/gotwittercloneapp/events"
+	"sync"
 )
 
 func main() {
-	server := utils.ApplicationServer{}
-	server.AddController(&controller.FollowController{})
-	server.AddController(&controller.PlayerController{})
-	server.AddController(&controller.TweetController{})
-	server.Initialize()
-
-	defer application.ResolveApplicationsOnClose()
-
-	log.Print("Server running!")
-	log.Fatal(http.ListenAndServe(":8000", server.MainRouter))
-
+	var appRunState sync.WaitGroup
+	appRunState.Add(1)
+	controller.InitHttpServer(&appRunState)
+	events.InitRabbitMq(&appRunState)
+	appRunState.Wait()
 }

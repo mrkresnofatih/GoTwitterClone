@@ -27,4 +27,5 @@ func LoginPlayerHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	responseHelper.SetJsonResponse(http.StatusOK, loginResp)
+
 }

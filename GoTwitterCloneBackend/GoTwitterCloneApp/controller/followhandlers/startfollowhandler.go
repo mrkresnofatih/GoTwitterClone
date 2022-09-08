@@ -2,7 +2,7 @@ package followhandlers
 
 import (
 	"github.com/gorilla/mux"
-	"mrkresnofatihdev/apps/gotwittercloneapp/application/followservice"
+	"mrkresnofatihdev/apps/gotwittercloneapp/events"
 	"mrkresnofatihdev/apps/gotwittercloneapp/models"
 	"mrkresnofatihdev/apps/gotwittercloneapp/utils"
 	"net/http"
@@ -28,14 +28,7 @@ func StartFollowHandler(w http.ResponseWriter, r *http.Request) {
 		Username:         targetFollowUsername,
 		FollowerUsername: requesterUsername,
 	}
-
-	err = followservice.StartFollowing(r.Context(), startFollowRequest)
-	if err != nil {
-		responseHelper.SetJsonResponse(http.StatusBadRequest, []string{
-			"start_follow_attempt_failed",
-		})
-		return
-	}
+	events.PublishEventMessage(r.Context(), events.FollowEventHandlerName, startFollowRequest)
 
 	responseHelper.SetJsonResponse(http.StatusOK, nil)
 }
