@@ -6,8 +6,6 @@ import (
 	"fmt"
 	"github.com/rabbitmq/amqp091-go"
 	"log"
-	"mrkresnofatihdev/apps/gotwittercloneapp/events/eventhandlers"
-	"mrkresnofatihdev/apps/gotwittercloneapp/models"
 	"sync"
 )
 
@@ -90,20 +88,6 @@ func ChannelConsume(ch *amqp091.Channel) (<-chan amqp091.Delivery, error) {
 		false,
 		false,
 		nil)
-}
-
-func GetEventHandlers() map[string]func(delivery amqp091.Delivery) {
-	followEvtHandlerInstance := BaseEventHandler[models.FollowRequestModel]{
-		ExecutorFunc: eventhandlers.FollowEventHandler,
-	}
-	unfollowEvtHandlerInstance := BaseEventHandler[models.FollowRequestModel]{
-		ExecutorFunc: eventhandlers.UnfollowEventHandler,
-	}
-
-	return map[string]func(delivery amqp091.Delivery){
-		eventhandlers.FollowEventHandlerName:   followEvtHandlerInstance.GetHandler(),
-		eventhandlers.UnfollowEventHandlerName: unfollowEvtHandlerInstance.GetHandler(),
-	}
 }
 
 func InitRabbitMq(runState *sync.WaitGroup) {

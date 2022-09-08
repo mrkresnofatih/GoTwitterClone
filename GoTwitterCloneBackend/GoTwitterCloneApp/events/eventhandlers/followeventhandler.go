@@ -22,6 +22,3 @@ func UnfollowEventHandler(followRequest models.FollowRequestModel) {
 		log.Println("stop following failed")
 	}
 }
-
-const FollowEventHandlerName = "FollowEvtHandler"
-const UnfollowEventHandlerName = "UnfollowEvtHandler"
