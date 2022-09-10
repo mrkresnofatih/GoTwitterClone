@@ -3,14 +3,17 @@ package models
 import "time"
 
 type Tweet struct {
-	TweetId     string    `json:"tweetId" firestore:"tweetId,omitempty"`
-	Username    string    `json:"username" firestore:"username,omitempty"`
-	Message     string    `json:"message" firestore:"message,omitempty"`
-	ImageURL    string    `json:"imageURL" firestore:"imageURL,omitempty"`
-	TweetType   TweetType `json:"tweetType" firestore:"tweetType,omitempty"`
-	ParentTweet *Tweet    `json:"parentTweet" firestore:"parentTweet,omitempty"`
-	CreatedAt   time.Time `json:"createdAt" firestore:"createdAt,omitempty"`
-	AvatarURL   string    `json:"avatarURL" firestore:"avatarURL,omitempty"`
+	TweetId      string    `json:"tweetId" firestore:"tweetId,omitempty"`
+	Username     string    `json:"username" firestore:"username,omitempty"`
+	Message      string    `json:"message" firestore:"message,omitempty"`
+	ImageURL     string    `json:"imageURL" firestore:"imageURL,omitempty"`
+	TweetType    TweetType `json:"tweetType" firestore:"tweetType,omitempty"`
+	ParentTweet  *Tweet    `json:"parentTweet" firestore:"parentTweet,omitempty"`
+	CreatedAt    time.Time `json:"createdAt" firestore:"createdAt,omitempty"`
+	AvatarURL    string    `json:"avatarURL" firestore:"avatarURL,omitempty"`
+	ReplyCount   int16     `json:"replyCount" firestore:"replyCount"`
+	RetweetCount int16     `json:"retweetCount" firestore:"retweetCount"`
+	QuoteCount   int16     `json:"quoteCount" firestore:"quoteCount"`
 }
 
 type TweetType string
@@ -48,4 +51,9 @@ type TweetRetweetActorModel struct {
 	TweetId            string `json:"tweetId" firestore:"tweetId,omitempty"`
 	ActorUsername      string `json:"actorUsername" firestore:"actorUsername,omitempty"`
 	TweetOwnerUsername string `json:"tweetOwnerUsername" firestore:"tweetOwnerUsername,omitempty"`
+}
+
+type TweetReplyRecordModel struct {
+	UsernameStartsWith string            `json:"usernameStartsWith" firestore:"usernameStartsWith,omitempty"`
+	Replies            map[string]string `json:"replies" firestore:"replies"`
 }

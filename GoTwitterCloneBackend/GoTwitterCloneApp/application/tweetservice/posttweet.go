@@ -28,14 +28,17 @@ func PostTweet(ctx context.Context, createRequest models.TweetCreateRequestModel
 	}
 
 	newTweet := models.Tweet{
-		TweetId:     tweetKey,
-		Username:    username,
-		TweetType:   models.SimpleTweetType,
-		Message:     createRequest.Message,
-		ImageURL:    createRequest.ImageURL,
-		CreatedAt:   time.Now(),
-		ParentTweet: nil,
-		AvatarURL:   profile.AvatarURL,
+		TweetId:      tweetKey,
+		Username:     username,
+		TweetType:    models.SimpleTweetType,
+		Message:      createRequest.Message,
+		ImageURL:     createRequest.ImageURL,
+		CreatedAt:    time.Now(),
+		ParentTweet:  nil,
+		AvatarURL:    profile.AvatarURL,
+		QuoteCount:   0,
+		ReplyCount:   0,
+		RetweetCount: 0,
 	}
 
 	_, err = fireStr.
