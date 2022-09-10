@@ -7,6 +7,7 @@ import (
 	"github.com/google/uuid"
 	"log"
 	"mrkresnofatihdev/apps/gotwittercloneapp/application"
+	"mrkresnofatihdev/apps/gotwittercloneapp/application/playerservice"
 	"mrkresnofatihdev/apps/gotwittercloneapp/models"
 	"time"
 )
@@ -17,7 +18,7 @@ func PostQuote(ctx context.Context, quoteReq models.TweetReplyRequestModel, user
 	}
 
 	getTweetReq := models.TweetGetRequestModel{
-		TweetId: quoteReq.TweetId,
+		TweetId:  quoteReq.TweetId,
 		Username: quoteReq.Username,
 	}
 	targetTweetExists, err := GetTweetExists(ctx, getTweetReq)
@@ -54,14 +55,21 @@ func PostQuote(ctx context.Context, quoteReq models.TweetReplyRequestModel, user
 		parentTweet = &targetTweet
 	}
 
+	profile, err := playerservice.GetPlayerMinimumProfile(ctx, username)
+	if err != nil {
+		log.Println("get profile failed!")
+		return returnDefaultsOnError(errors.New("failed_create_tweet_get_profile_failed"))
+	}
+
 	newTweet := models.Tweet{
-		TweetId: tweetKey,
-		Username: username,
-		TweetType: models.QuoteTweetType,
-		Message: quoteReq.Message,
-		ImageURL: quoteReq.ImageURL,
-		CreatedAt: time.Now(),
+		TweetId:     tweetKey,
+		Username:    username,
+		TweetType:   models.QuoteTweetType,
+		Message:     quoteReq.Message,
+		ImageURL:    quoteReq.ImageURL,
+		CreatedAt:   time.Now(),
 		ParentTweet: parentTweet,
+		AvatarURL:   profile.AvatarURL,
 	}
 
 	log.Println("attempt saving quote to db")
