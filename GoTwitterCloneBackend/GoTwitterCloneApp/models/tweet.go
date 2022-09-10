@@ -10,6 +10,7 @@ type Tweet struct {
 	TweetType   TweetType `json:"tweetType" firestore:"tweetType,omitempty"`
 	ParentTweet *Tweet    `json:"parentTweet" firestore:"parentTweet,omitempty"`
 	CreatedAt   time.Time `json:"createdAt" firestore:"createdAt,omitempty"`
+	AvatarURL   string    `json:"avatarURL" firestore:"avatarURL,omitempty"`
 }
 
 type TweetType string

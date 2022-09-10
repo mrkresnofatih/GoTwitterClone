@@ -7,6 +7,7 @@ import (
 	"github.com/google/uuid"
 	"log"
 	"mrkresnofatihdev/apps/gotwittercloneapp/application"
+	"mrkresnofatihdev/apps/gotwittercloneapp/application/playerservice"
 	"mrkresnofatihdev/apps/gotwittercloneapp/models"
 	"time"
 )
@@ -17,7 +18,7 @@ func PostRetweet(ctx context.Context, retweetReq models.TweetRetweetRequestModel
 	}
 
 	getTweetReq := models.TweetGetRequestModel{
-		TweetId: retweetReq.TweetId,
+		TweetId:  retweetReq.TweetId,
 		Username: retweetReq.Username,
 	}
 	targetTweetExists, err := GetTweetExists(ctx, getTweetReq)
@@ -31,9 +32,9 @@ func PostRetweet(ctx context.Context, retweetReq models.TweetRetweetRequestModel
 	}
 
 	retweetActorData := models.TweetRetweetActorModel{
-		TweetId: retweetReq.TweetId,
+		TweetId:            retweetReq.TweetId,
 		TweetOwnerUsername: retweetReq.Username,
-		ActorUsername: username,
+		ActorUsername:      username,
 	}
 	alreadyRetweetedBefore := RetweetActorRecordExists(ctx, retweetActorData)
 	if alreadyRetweetedBefore {
@@ -65,6 +66,12 @@ func PostRetweet(ctx context.Context, retweetReq models.TweetRetweetRequestModel
 		parentTweet = &targetTweet
 	}
 
+	profile, err := playerservice.GetPlayerMinimumProfile(ctx, username)
+	if err != nil {
+		log.Println("get profile failed!")
+		return returnDefaultsOnError(errors.New("failed_create_tweet_get_profile_failed"))
+	}
+
 	newTweet := models.Tweet{
 		TweetId:     tweetKey,
 		Username:    username,
@@ -73,6 +80,7 @@ func PostRetweet(ctx context.Context, retweetReq models.TweetRetweetRequestModel
 		ImageURL:    "",
 		CreatedAt:   time.Now(),
 		ParentTweet: parentTweet,
+		AvatarURL:   profile.AvatarURL,
 	}
 
 	log.Println("attempt saving reply to db")
