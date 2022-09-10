@@ -150,7 +150,7 @@ type EventMessage struct {
 }
 
 type BaseEventHandler[T interface{}] struct {
-	ExecutorFunc func(data T)
+	ExecutorFunc func(ctx context.Context, data T)
 }
 
 func (b *BaseEventHandler[T]) GetHandler() func(d amqp091.Delivery) {
@@ -165,7 +165,8 @@ func (b *BaseEventHandler[T]) GetHandler() func(d amqp091.Delivery) {
 			}
 			return
 		}
-		b.ExecutorFunc(data)
+		ctx := context.Background()
+		b.ExecutorFunc(ctx, data)
 
 		err = d.Ack(false)
 		if err != nil {

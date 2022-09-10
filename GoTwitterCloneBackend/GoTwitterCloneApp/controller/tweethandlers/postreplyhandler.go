@@ -3,6 +3,7 @@ package tweethandlers
 import (
 	"encoding/json"
 	"mrkresnofatihdev/apps/gotwittercloneapp/application/tweetservice"
+	"mrkresnofatihdev/apps/gotwittercloneapp/events"
 	"mrkresnofatihdev/apps/gotwittercloneapp/models"
 	"mrkresnofatihdev/apps/gotwittercloneapp/utils"
 	"net/http"
@@ -30,6 +31,9 @@ func PostReplyHandler(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+
+	events.PublishEventMessage(r.Context(), events.IncrementReplyCountEventHandlerName, postReplyReq)
+	events.PublishEventMessage(r.Context(), events.RecordReplyTweetEventHandlerName, newlyCreatedReply)
 
 	responseHelper.SetJsonResponse(http.StatusOK, newlyCreatedReply)
 }

@@ -13,12 +13,33 @@ func GetEventHandlers() map[string]func(delivery amqp091.Delivery) {
 	unfollowEvtHandlerInstance := BaseEventHandler[models.FollowRequestModel]{
 		ExecutorFunc: eventhandlers.UnfollowEventHandler,
 	}
+	incrementRetweetCountEvtHandlerInstance := BaseEventHandler[models.TweetRetweetRequestModel]{
+		ExecutorFunc: eventhandlers.IncrementRetweetCountEventHandler,
+	}
+	incrementReplyCountEvtHandlerInstance := BaseEventHandler[models.TweetReplyRequestModel]{
+		ExecutorFunc: eventhandlers.IncrementReplyCountEventHandler,
+	}
+	incrementQuoteCountEvtHandlerInstance := BaseEventHandler[models.TweetReplyRequestModel]{
+		ExecutorFunc: eventhandlers.IncrementQuoteCountEventHandler,
+	}
+	recordReplyTweetEvtHandlerInstance := BaseEventHandler[models.Tweet]{
+		ExecutorFunc: eventhandlers.RecordReplyTweetEventHandler,
+	}
 
 	return map[string]func(delivery amqp091.Delivery){
-		FollowEventHandlerName:   followEvtHandlerInstance.GetHandler(),
-		UnfollowEventHandlerName: unfollowEvtHandlerInstance.GetHandler(),
+		FollowEventHandlerName:                followEvtHandlerInstance.GetHandler(),
+		UnfollowEventHandlerName:              unfollowEvtHandlerInstance.GetHandler(),
+		IncrementRetweetCountEventHandlerName: incrementRetweetCountEvtHandlerInstance.GetHandler(),
+		IncrementReplyCountEventHandlerName:   incrementReplyCountEvtHandlerInstance.GetHandler(),
+		IncrementQuoteCountEventHandlerName:   incrementQuoteCountEvtHandlerInstance.GetHandler(),
+		RecordReplyTweetEventHandlerName:      recordReplyTweetEvtHandlerInstance.GetHandler(),
 	}
 }
 
 const FollowEventHandlerName = "FollowEvtHandler"
 const UnfollowEventHandlerName = "UnfollowEvtHandler"
+
+const IncrementRetweetCountEventHandlerName = "IncrementRetweetCountEvtHandler"
+const IncrementReplyCountEventHandlerName = "IncrementReplyCountEventHandler"
+const IncrementQuoteCountEventHandlerName = "IncrementQuoteCountEventHandler"
+const RecordReplyTweetEventHandlerName = "RecordReplyTweetEventHandler"

@@ -1,6 +1,7 @@
 package tweetservice
 
 import (
+	"cloud.google.com/go/firestore"
 	"context"
 	"errors"
 	"fmt"
@@ -72,15 +73,19 @@ func PostRetweet(ctx context.Context, retweetReq models.TweetRetweetRequestModel
 		return returnDefaultsOnError(errors.New("failed_create_tweet_get_profile_failed"))
 	}
 
+	parentTweet.RetweetCount++
 	newTweet := models.Tweet{
-		TweetId:     tweetKey,
-		Username:    username,
-		TweetType:   models.RetweetTweetType,
-		Message:     "",
-		ImageURL:    "",
-		CreatedAt:   time.Now(),
-		ParentTweet: parentTweet,
-		AvatarURL:   profile.AvatarURL,
+		TweetId:      tweetKey,
+		Username:     username,
+		TweetType:    models.RetweetTweetType,
+		Message:      "",
+		ImageURL:     "",
+		CreatedAt:    time.Now(),
+		ParentTweet:  parentTweet,
+		AvatarURL:    profile.AvatarURL,
+		QuoteCount:   0,
+		ReplyCount:   0,
+		RetweetCount: 0,
 	}
 
 	log.Println("attempt saving reply to db")
@@ -99,6 +104,7 @@ func PostRetweet(ctx context.Context, retweetReq models.TweetRetweetRequestModel
 		log.Println("failed to save retweet actor data")
 		return returnDefaultsOnError(err)
 	}
+
 	return newTweet, nil
 }
 
@@ -108,4 +114,28 @@ func constructParentForRetweetTweetTypeReplyQuote(targetTweet models.Tweet) *mod
 		currentParentTweet.ParentTweet.ParentTweet = nil
 	}
 	return currentParentTweet
+}
+
+func IncrementRetweetCountOfTargetTweet(ctx context.Context, targetTweet models.TweetRetweetRequestModel) error {
+	log.Println("attempting to increment retweet count of target tweet")
+
+	fireStr := application.GetFirestoreInstance()
+	userTweetsCollectionKey := fmt.Sprintf(tweetsCollectionKeyFormat, targetTweet.Username)
+	_, err := fireStr.
+		Collection(userTweetsCollectionKey).
+		Doc(targetTweet.TweetId).
+		Update(ctx, []firestore.Update{
+			{
+				Path:  fmt.Sprintf("retweetCount"),
+				Value: firestore.Increment(1),
+			},
+		})
+	if err != nil {
+		log.Println("failed to increment retweet count")
+		return errors.New("increment retweet count failed")
+	}
+
+	log.Println("increment success")
+
+	return nil
 }

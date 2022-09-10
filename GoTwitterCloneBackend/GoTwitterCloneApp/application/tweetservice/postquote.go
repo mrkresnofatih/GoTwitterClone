@@ -1,6 +1,7 @@
 package tweetservice
 
 import (
+	"cloud.google.com/go/firestore"
 	"context"
 	"errors"
 	"fmt"
@@ -61,15 +62,19 @@ func PostQuote(ctx context.Context, quoteReq models.TweetReplyRequestModel, user
 		return returnDefaultsOnError(errors.New("failed_create_tweet_get_profile_failed"))
 	}
 
+	parentTweet.QuoteCount++
 	newTweet := models.Tweet{
-		TweetId:     tweetKey,
-		Username:    username,
-		TweetType:   models.QuoteTweetType,
-		Message:     quoteReq.Message,
-		ImageURL:    quoteReq.ImageURL,
-		CreatedAt:   time.Now(),
-		ParentTweet: parentTweet,
-		AvatarURL:   profile.AvatarURL,
+		TweetId:      tweetKey,
+		Username:     username,
+		TweetType:    models.QuoteTweetType,
+		Message:      quoteReq.Message,
+		ImageURL:     quoteReq.ImageURL,
+		CreatedAt:    time.Now(),
+		ParentTweet:  parentTweet,
+		AvatarURL:    profile.AvatarURL,
+		ReplyCount:   0,
+		QuoteCount:   0,
+		RetweetCount: 0,
 	}
 
 	log.Println("attempt saving quote to db")
@@ -91,4 +96,28 @@ func constructParentForQuoteTweetTypeQuoteReply(targetTweet models.Tweet) *model
 		currentParentTweet.ParentTweet.ParentTweet = nil
 	}
 	return currentParentTweet
+}
+
+func IncrementQuoteCountOfTargetTweet(ctx context.Context, targetTweet models.TweetReplyRequestModel) error {
+	log.Println("attempting to increment quote count of target tweet")
+
+	fireStr := application.GetFirestoreInstance()
+	userTweetsCollectionKey := fmt.Sprintf(tweetsCollectionKeyFormat, targetTweet.Username)
+	_, err := fireStr.
+		Collection(userTweetsCollectionKey).
+		Doc(targetTweet.TweetId).
+		Update(ctx, []firestore.Update{
+			{
+				Path:  fmt.Sprintf("quoteCount"),
+				Value: firestore.Increment(1),
+			},
+		})
+	if err != nil {
+		log.Println("failed to increment quote count")
+		return errors.New("increment quote count failed")
+	}
+
+	log.Println("increment success")
+
+	return nil
 }
