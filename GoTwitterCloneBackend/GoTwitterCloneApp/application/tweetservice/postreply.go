@@ -7,6 +7,7 @@ import (
 	"github.com/google/uuid"
 	"log"
 	"mrkresnofatihdev/apps/gotwittercloneapp/application"
+	"mrkresnofatihdev/apps/gotwittercloneapp/application/playerservice"
 	"mrkresnofatihdev/apps/gotwittercloneapp/models"
 	"time"
 )
@@ -17,7 +18,7 @@ func PostReply(ctx context.Context, replyReq models.TweetReplyRequestModel, user
 	}
 
 	getTweetReq := models.TweetGetRequestModel{
-		TweetId: replyReq.TweetId,
+		TweetId:  replyReq.TweetId,
 		Username: replyReq.Username,
 	}
 	targetTweetExists, err := GetTweetExists(ctx, getTweetReq)
@@ -54,6 +55,12 @@ func PostReply(ctx context.Context, replyReq models.TweetReplyRequestModel, user
 		parentTweet = &targetTweet
 	}
 
+	profile, err := playerservice.GetPlayerMinimumProfile(ctx, username)
+	if err != nil {
+		log.Println("get profile failed!")
+		return returnDefaultsOnError(errors.New("failed_create_tweet_get_profile_failed"))
+	}
+
 	newTweet := models.Tweet{
 		TweetId:     tweetKey,
 		Username:    username,
@@ -62,6 +69,7 @@ func PostReply(ctx context.Context, replyReq models.TweetReplyRequestModel, user
 		ImageURL:    replyReq.ImageURL,
 		CreatedAt:   time.Now(),
 		ParentTweet: parentTweet,
+		AvatarURL:   profile.AvatarURL,
 	}
 
 	log.Println("attempt saving reply to db")
@@ -93,7 +101,7 @@ func constructParentForReplyTweetTypeReply(targetTweet models.Tweet) *models.Twe
 			break
 		}
 
-		if traversalCount + 1 == maxTraversal {
+		if traversalCount+1 == maxTraversal {
 			log.Println("traversal count reached it's limit, parent will be nil")
 			currentParentTweet.ParentTweet = nil
 		} else {
