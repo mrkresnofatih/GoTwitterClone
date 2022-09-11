@@ -24,7 +24,7 @@ func GetProfileFeed(ctx context.Context, query models.ProfileFeedQueryModel) ([]
 
 	startAt := fmt.Sprintf("%015d", query.StartAt)
 	iter := fireStr.
-		Collection(tweetservice.TweetsCollectionKeyFormat).
+		Collection(tweetservice.TweetsCollectionName).
 		Where("username", "==", query.Username).
 		Where("createdAt", ">", startAt).
 		OrderBy("createdAt", firestore.Desc).

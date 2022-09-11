@@ -12,7 +12,7 @@ func GetTweetExists(ctx context.Context, getRequest models.TweetGetRequestModel)
 	fireStr := application.GetFirestoreInstance()
 
 	foundTweet, err := fireStr.
-		Collection(TweetsCollectionKeyFormat).
+		Collection(TweetsCollectionName).
 		Doc(getRequest.TweetId).
 		Get(ctx)
 	if err != nil {

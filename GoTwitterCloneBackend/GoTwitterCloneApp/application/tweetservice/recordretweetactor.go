@@ -16,7 +16,7 @@ func RecordRetweetActor(ctx context.Context, tweetRetweetActorModel models.Tweet
 	retweetKey := fmt.Sprintf(retweetKeyFormat, tweetRetweetActorModel.ActorUsername)
 
 	_, err := fireStr.
-		Collection(TweetsCollectionKeyFormat).
+		Collection(TweetsCollectionName).
 		Doc(tweetRetweetActorModel.TweetId).
 		Collection(retweetActorsCollectionName).
 		Doc(retweetKey).
@@ -35,7 +35,7 @@ func RetweetActorRecordExists(ctx context.Context, tweetRetweetActorModel models
 	retweetKey := fmt.Sprintf(retweetKeyFormat, tweetRetweetActorModel.ActorUsername)
 
 	tweetRetweetActorRecord, err := fireStr.
-		Collection(TweetsCollectionKeyFormat).
+		Collection(TweetsCollectionName).
 		Doc(tweetRetweetActorModel.TweetId).
 		Collection(retweetActorsCollectionName).
 		Doc(retweetKey).

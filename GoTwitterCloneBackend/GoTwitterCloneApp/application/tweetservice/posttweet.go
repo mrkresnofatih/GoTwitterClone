@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-const TweetsCollectionKeyFormat = "tweets"
+const TweetsCollectionName = "tweets"
 const TweetKeyFormat = "tweet#%s#%s"
 
 func PostTweet(ctx context.Context, createRequest models.TweetCreateRequestModel, username string) (models.Tweet, error) {
@@ -41,7 +41,7 @@ func PostTweet(ctx context.Context, createRequest models.TweetCreateRequestModel
 	}
 
 	_, err = fireStr.
-		Collection(TweetsCollectionKeyFormat).
+		Collection(TweetsCollectionName).
 		Doc(tweetKey).
 		Set(ctx, newTweet)
 	if err != nil {

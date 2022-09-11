@@ -15,7 +15,7 @@ func GetTweet(ctx context.Context, getRequest models.TweetGetRequestModel) (mode
 	fireStr := application.GetFirestoreInstance()
 
 	foundTweetData, err := fireStr.
-		Collection(TweetsCollectionKeyFormat).
+		Collection(TweetsCollectionName).
 		Doc(getRequest.TweetId).
 		Get(ctx)
 	if err != nil {

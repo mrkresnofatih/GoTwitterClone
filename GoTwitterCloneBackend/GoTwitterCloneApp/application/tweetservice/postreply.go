@@ -76,7 +76,7 @@ func PostReply(ctx context.Context, replyReq models.TweetReplyRequestModel, user
 
 	log.Println("attempt saving reply to db")
 	_, err = fireStr.
-		Collection(TweetsCollectionKeyFormat).
+		Collection(TweetsCollectionName).
 		Doc(tweetKey).
 		Set(ctx, newTweet)
 	if err != nil {
@@ -129,7 +129,7 @@ func IncrementReplyCountOfTargetTweet(ctx context.Context, targetTweet models.Tw
 
 	fireStr := application.GetFirestoreInstance()
 	_, err := fireStr.
-		Collection(TweetsCollectionKeyFormat).
+		Collection(TweetsCollectionName).
 		Doc(targetTweet.TweetId).
 		Update(ctx, []firestore.Update{
 			{

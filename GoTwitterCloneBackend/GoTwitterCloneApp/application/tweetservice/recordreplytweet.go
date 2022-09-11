@@ -54,7 +54,7 @@ func initTweetReplyRecord(ctx context.Context, replyTweet models.Tweet) error {
 	}
 
 	_, err := fireStr.
-		Collection(TweetsCollectionKeyFormat).
+		Collection(TweetsCollectionName).
 		Doc(tweetKey).
 		Collection(tweetReplyRecordCollectionName).
 		Doc(tweetReplyRecordKey).
@@ -73,7 +73,7 @@ func getTweetReplyRecordExists(ctx context.Context, replyTweet models.Tweet) (bo
 	tweetReplyRecordKey := fmt.Sprintf(tweetReplyRecordStartsWithKeyFormat, replyTweet.Username[:1])
 
 	record, err := fireStr.
-		Collection(TweetsCollectionKeyFormat).
+		Collection(TweetsCollectionName).
 		Doc(tweetKey).
 		Collection(tweetReplyRecordCollectionName).
 		Doc(tweetReplyRecordKey).
@@ -96,7 +96,7 @@ func populateReplyList(ctx context.Context, replyTweet models.Tweet) error {
 	tweetReplyRecordKey := fmt.Sprintf(tweetReplyRecordStartsWithKeyFormat, replyTweet.Username[:1])
 
 	_, err := fireStr.
-		Collection(TweetsCollectionKeyFormat).
+		Collection(TweetsCollectionName).
 		Doc(tweetKey).
 		Collection(tweetReplyRecordCollectionName).
 		Doc(tweetReplyRecordKey).
