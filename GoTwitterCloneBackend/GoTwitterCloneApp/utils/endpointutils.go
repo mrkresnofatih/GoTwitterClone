@@ -11,7 +11,7 @@ import (
 	"net/http"
 )
 
-//#region RequireAuthenticationDecorator
+// #region RequireAuthenticationDecorator
 type RequireAuthentication struct {
 	Endpoint IEndpoint
 }
@@ -52,9 +52,10 @@ func (s *RequireAuthentication) AddEndpointTo(router *mux.Router) {
 		HandleFunc(s.GetPath(), s.GetHandler()).
 		Methods(s.GetMethod())
 }
+
 //#endregion
 
-//#region RequirePermissionDecorator
+// #region RequirePermissionDecorator
 type RequirePermission struct {
 	Endpoint   IEndpoint
 	Permission string
@@ -91,9 +92,10 @@ func (s *RequirePermission) AddEndpointTo(router *mux.Router) {
 		HandleFunc(s.GetPath(), s.GetHandler()).
 		Methods(s.GetMethod())
 }
+
 //#endregion
 
-//#region RequireValidationDecorator
+// #region RequireValidationDecorator
 type RequireValidation[T interface{}] struct {
 	Endpoint IEndpoint
 }
@@ -113,6 +115,7 @@ func (s *RequireValidation[T]) GetHandler() HandlerFunc {
 		var bodyData T
 		err = json.Unmarshal(body, &bodyData)
 		if err != nil {
+			log.Println(err)
 			responseHelper.SetJsonResponse(http.StatusBadRequest, []string{
 				"parse_json_failed",
 			})
@@ -154,4 +157,5 @@ func (s *RequireValidation[T]) AddEndpointTo(router *mux.Router) {
 		HandleFunc(s.GetPath(), s.GetHandler()).
 		Methods(s.GetMethod())
 }
+
 //#endregion

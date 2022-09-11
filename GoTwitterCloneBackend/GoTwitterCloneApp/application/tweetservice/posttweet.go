@@ -12,14 +12,13 @@ import (
 	"time"
 )
 
-const tweetsCollectionKeyFormat = "tweets#%s"
-const tweetKeyFormat = "tweet#%s#%s"
+const TweetsCollectionKeyFormat = "tweets"
+const TweetKeyFormat = "tweet#%s#%s"
 
 func PostTweet(ctx context.Context, createRequest models.TweetCreateRequestModel, username string) (models.Tweet, error) {
 	fireStr := application.GetFirestoreInstance()
 
-	userTweetsCollectionKey := fmt.Sprintf(tweetsCollectionKeyFormat, username)
-	tweetKey := fmt.Sprintf(tweetKeyFormat, username, uuid.New().String())
+	tweetKey := fmt.Sprintf(TweetKeyFormat, username, uuid.New().String())
 
 	profile, err := playerservice.GetPlayerMinimumProfile(ctx, username)
 	if err != nil {
@@ -33,7 +32,7 @@ func PostTweet(ctx context.Context, createRequest models.TweetCreateRequestModel
 		TweetType:    models.SimpleTweetType,
 		Message:      createRequest.Message,
 		ImageURL:     createRequest.ImageURL,
-		CreatedAt:    time.Now(),
+		CreatedAt:    fmt.Sprintf("%015d", time.Now().UnixMilli()),
 		ParentTweet:  nil,
 		AvatarURL:    profile.AvatarURL,
 		QuoteCount:   0,
@@ -42,7 +41,7 @@ func PostTweet(ctx context.Context, createRequest models.TweetCreateRequestModel
 	}
 
 	_, err = fireStr.
-		Collection(userTweetsCollectionKey).
+		Collection(TweetsCollectionKeyFormat).
 		Doc(tweetKey).
 		Set(ctx, newTweet)
 	if err != nil {

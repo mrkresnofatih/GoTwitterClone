@@ -15,10 +15,11 @@ func InitHttpServer(runState *sync.WaitGroup) {
 		muxServer.AddController(&FollowController{})
 		muxServer.AddController(&PlayerController{})
 		muxServer.AddController(&TweetController{})
+		muxServer.AddController(&TimelineController{})
 		muxServer.Initialize()
 
 		httpServer = &http.Server{
-			Addr: ":8000",
+			Addr:    ":8000",
 			Handler: muxServer.MainRouter,
 		}
 

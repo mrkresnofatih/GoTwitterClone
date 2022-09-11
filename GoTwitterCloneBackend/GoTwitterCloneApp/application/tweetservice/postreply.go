@@ -19,8 +19,7 @@ func PostReply(ctx context.Context, replyReq models.TweetReplyRequestModel, user
 	}
 
 	getTweetReq := models.TweetGetRequestModel{
-		TweetId:  replyReq.TweetId,
-		Username: replyReq.Username,
+		TweetId: replyReq.TweetId,
 	}
 	targetTweetExists, err := GetTweetExists(ctx, getTweetReq)
 	if err != nil {
@@ -39,9 +38,7 @@ func PostReply(ctx context.Context, replyReq models.TweetReplyRequestModel, user
 	}
 
 	fireStr := application.GetFirestoreInstance()
-
-	userTweetsCollectionKey := fmt.Sprintf(tweetsCollectionKeyFormat, username)
-	tweetKey := fmt.Sprintf(tweetKeyFormat, username, uuid.New().String())
+	tweetKey := fmt.Sprintf(TweetKeyFormat, username, uuid.New().String())
 
 	var parentTweet *models.Tweet
 	switch targetTweet.TweetType {
@@ -69,7 +66,7 @@ func PostReply(ctx context.Context, replyReq models.TweetReplyRequestModel, user
 		TweetType:    models.ReplyTweetType,
 		Message:      replyReq.Message,
 		ImageURL:     replyReq.ImageURL,
-		CreatedAt:    time.Now(),
+		CreatedAt:    fmt.Sprintf("%015d", time.Now().UnixMilli()),
 		ParentTweet:  parentTweet,
 		AvatarURL:    profile.AvatarURL,
 		ReplyCount:   0,
@@ -79,7 +76,7 @@ func PostReply(ctx context.Context, replyReq models.TweetReplyRequestModel, user
 
 	log.Println("attempt saving reply to db")
 	_, err = fireStr.
-		Collection(userTweetsCollectionKey).
+		Collection(TweetsCollectionKeyFormat).
 		Doc(tweetKey).
 		Set(ctx, newTweet)
 	if err != nil {
@@ -131,9 +128,8 @@ func IncrementReplyCountOfTargetTweet(ctx context.Context, targetTweet models.Tw
 	log.Println("attempting to increment reply count of target tweet")
 
 	fireStr := application.GetFirestoreInstance()
-	userTweetsCollectionKey := fmt.Sprintf(tweetsCollectionKeyFormat, targetTweet.Username)
 	_, err := fireStr.
-		Collection(userTweetsCollectionKey).
+		Collection(TweetsCollectionKeyFormat).
 		Doc(targetTweet.TweetId).
 		Update(ctx, []firestore.Update{
 			{
