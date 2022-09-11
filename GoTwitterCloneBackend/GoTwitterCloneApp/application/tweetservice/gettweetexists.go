@@ -3,7 +3,6 @@ package tweetservice
 import (
 	"context"
 	"errors"
-	"fmt"
 	"log"
 	"mrkresnofatihdev/apps/gotwittercloneapp/application"
 	"mrkresnofatihdev/apps/gotwittercloneapp/models"
@@ -12,10 +11,8 @@ import (
 func GetTweetExists(ctx context.Context, getRequest models.TweetGetRequestModel) (bool, error) {
 	fireStr := application.GetFirestoreInstance()
 
-	userTweetsCollectionKey := fmt.Sprintf(tweetsCollectionKeyFormat, getRequest.Username)
-
 	foundTweet, err := fireStr.
-		Collection(userTweetsCollectionKey).
+		Collection(TweetsCollectionName).
 		Doc(getRequest.TweetId).
 		Get(ctx)
 	if err != nil {

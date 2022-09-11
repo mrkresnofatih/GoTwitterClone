@@ -8,17 +8,15 @@ import (
 	"mrkresnofatihdev/apps/gotwittercloneapp/models"
 )
 
-const retweetKeyFormat  = "retweet-actor#%s"
+const retweetKeyFormat = "retweet-actor#%s"
 const retweetActorsCollectionName = "retweetActors"
 
 func RecordRetweetActor(ctx context.Context, tweetRetweetActorModel models.TweetRetweetActorModel) error {
 	fireStr := application.GetFirestoreInstance()
-
-	userTweetsCollectionKey := fmt.Sprintf(tweetsCollectionKeyFormat, tweetRetweetActorModel.TweetOwnerUsername)
 	retweetKey := fmt.Sprintf(retweetKeyFormat, tweetRetweetActorModel.ActorUsername)
 
 	_, err := fireStr.
-		Collection(userTweetsCollectionKey).
+		Collection(TweetsCollectionName).
 		Doc(tweetRetweetActorModel.TweetId).
 		Collection(retweetActorsCollectionName).
 		Doc(retweetKey).
@@ -34,11 +32,10 @@ func RecordRetweetActor(ctx context.Context, tweetRetweetActorModel models.Tweet
 
 func RetweetActorRecordExists(ctx context.Context, tweetRetweetActorModel models.TweetRetweetActorModel) bool {
 	fireStr := application.GetFirestoreInstance()
-	userTweetsCollectionKey := fmt.Sprintf(tweetsCollectionKeyFormat, tweetRetweetActorModel.TweetOwnerUsername)
 	retweetKey := fmt.Sprintf(retweetKeyFormat, tweetRetweetActorModel.ActorUsername)
 
 	tweetRetweetActorRecord, err := fireStr.
-		Collection(userTweetsCollectionKey).
+		Collection(TweetsCollectionName).
 		Doc(tweetRetweetActorModel.TweetId).
 		Collection(retweetActorsCollectionName).
 		Doc(retweetKey).
@@ -48,6 +45,5 @@ func RetweetActorRecordExists(ctx context.Context, tweetRetweetActorModel models
 		return false
 	}
 	return tweetRetweetActorRecord.Exists()
-
 
 }

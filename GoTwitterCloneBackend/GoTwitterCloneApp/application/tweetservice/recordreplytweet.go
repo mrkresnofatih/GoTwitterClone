@@ -42,8 +42,6 @@ func RecordReplyTweet(ctx context.Context, replyTweet models.Tweet) {
 
 func initTweetReplyRecord(ctx context.Context, replyTweet models.Tweet) error {
 	fireStr := application.GetFirestoreInstance()
-
-	userTweetsCollectionKey := fmt.Sprintf(tweetsCollectionKeyFormat, replyTweet.ParentTweet.Username)
 	tweetKey := replyTweet.ParentTweet.TweetId
 
 	tweetReplyRecordKey := fmt.Sprintf(tweetReplyRecordStartsWithKeyFormat, replyTweet.Username[:1])
@@ -56,7 +54,7 @@ func initTweetReplyRecord(ctx context.Context, replyTweet models.Tweet) error {
 	}
 
 	_, err := fireStr.
-		Collection(userTweetsCollectionKey).
+		Collection(TweetsCollectionName).
 		Doc(tweetKey).
 		Collection(tweetReplyRecordCollectionName).
 		Doc(tweetReplyRecordKey).
@@ -70,14 +68,12 @@ func initTweetReplyRecord(ctx context.Context, replyTweet models.Tweet) error {
 
 func getTweetReplyRecordExists(ctx context.Context, replyTweet models.Tweet) (bool, error) {
 	fireStr := application.GetFirestoreInstance()
-
-	userTweetsCollectionKey := fmt.Sprintf(tweetsCollectionKeyFormat, replyTweet.ParentTweet.Username)
 	tweetKey := replyTweet.ParentTweet.TweetId
 
 	tweetReplyRecordKey := fmt.Sprintf(tweetReplyRecordStartsWithKeyFormat, replyTweet.Username[:1])
 
 	record, err := fireStr.
-		Collection(userTweetsCollectionKey).
+		Collection(TweetsCollectionName).
 		Doc(tweetKey).
 		Collection(tweetReplyRecordCollectionName).
 		Doc(tweetReplyRecordKey).
@@ -95,14 +91,12 @@ func getTweetReplyRecordExists(ctx context.Context, replyTweet models.Tweet) (bo
 
 func populateReplyList(ctx context.Context, replyTweet models.Tweet) error {
 	fireStr := application.GetFirestoreInstance()
-
-	userTweetsCollectionKey := fmt.Sprintf(tweetsCollectionKeyFormat, replyTweet.ParentTweet.Username)
 	tweetKey := replyTweet.ParentTweet.TweetId
 
 	tweetReplyRecordKey := fmt.Sprintf(tweetReplyRecordStartsWithKeyFormat, replyTweet.Username[:1])
 
 	_, err := fireStr.
-		Collection(userTweetsCollectionKey).
+		Collection(TweetsCollectionName).
 		Doc(tweetKey).
 		Collection(tweetReplyRecordCollectionName).
 		Doc(tweetReplyRecordKey).

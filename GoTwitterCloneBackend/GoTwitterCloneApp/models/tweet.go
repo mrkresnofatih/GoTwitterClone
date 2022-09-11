@@ -1,7 +1,5 @@
 package models
 
-import "time"
-
 type Tweet struct {
 	TweetId      string    `json:"tweetId" firestore:"tweetId,omitempty"`
 	Username     string    `json:"username" firestore:"username,omitempty"`
@@ -9,7 +7,7 @@ type Tweet struct {
 	ImageURL     string    `json:"imageURL" firestore:"imageURL,omitempty"`
 	TweetType    TweetType `json:"tweetType" firestore:"tweetType,omitempty"`
 	ParentTweet  *Tweet    `json:"parentTweet" firestore:"parentTweet,omitempty"`
-	CreatedAt    time.Time `json:"createdAt" firestore:"createdAt,omitempty"`
+	CreatedAt    string    `json:"createdAt" firestore:"createdAt,omitempty"`
 	AvatarURL    string    `json:"avatarURL" firestore:"avatarURL,omitempty"`
 	ReplyCount   int16     `json:"replyCount" firestore:"replyCount"`
 	RetweetCount int16     `json:"retweetCount" firestore:"retweetCount"`
@@ -43,8 +41,7 @@ type TweetRetweetRequestModel struct {
 }
 
 type TweetGetRequestModel struct {
-	Username string `json:"username" validate:"required,max=30"`
-	TweetId  string `json:"tweetId" validate:"required,max=100"`
+	TweetId string `json:"tweetId" validate:"required,max=100"`
 }
 
 type TweetRetweetActorModel struct {
