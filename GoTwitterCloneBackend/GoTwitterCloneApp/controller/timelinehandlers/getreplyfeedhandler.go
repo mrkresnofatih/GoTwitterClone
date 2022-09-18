@@ -9,12 +9,12 @@ import (
 	"net/http"
 )
 
-func GetProfileFeedHandler(w http.ResponseWriter, r *http.Request) {
+func GetReplyFeedHandler(w http.ResponseWriter, r *http.Request) {
 	responseHelper := utils.ResponseHelper{Writer: w}
-	var getProfile models.ProfileFeedQueryModel
-	_ = json.NewDecoder(r.Body).Decode(&getProfile)
+	var getReplies models.ReplyFeedQueryModel
+	_ = json.NewDecoder(r.Body).Decode(&getReplies)
 
-	profileFeedResponseData, err := timelineservice.GetProfileFeed(r.Context(), getProfile)
+	replyFeedResponseData, err := timelineservice.GetReplyFeed(r.Context(), getReplies)
 	if err != nil {
 		log.Println("error: " + err.Error())
 		responseHelper.SetJsonResponse(http.StatusBadRequest, []string{
@@ -23,5 +23,5 @@ func GetProfileFeedHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	responseHelper.SetJsonResponse(http.StatusOK, profileFeedResponseData)
+	responseHelper.SetJsonResponse(http.StatusOK, replyFeedResponseData)
 }

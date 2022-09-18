@@ -11,7 +11,7 @@ import (
 	"mrkresnofatihdev/apps/gotwittercloneapp/models"
 )
 
-func GetProfileFeed(ctx context.Context, query models.ProfileFeedQueryModel) ([]models.Tweet, error) {
+func GetReplyFeed(ctx context.Context, query models.ReplyFeedQueryModel) ([]models.Tweet, error) {
 	returnDefaultOnError := func(err error) ([]models.Tweet, error) {
 		return *new([]models.Tweet), err
 	}
@@ -25,12 +25,12 @@ func GetProfileFeed(ctx context.Context, query models.ProfileFeedQueryModel) ([]
 	startAt := fmt.Sprintf("%015d", query.StartAt)
 	maxLimit := 20
 	if query.Limit > maxLimit {
-		log.Println("query-limit profile-feed too high! will default to max-limit")
+		log.Println("query-limit reply-feed too high! will default to max-limit")
 		query.Limit = maxLimit
 	}
 	iter := fireStr.
-		Collection(tweetservice.TweetsCollectionName).
-		Where("username", "==", query.Username).
+		Collection(tweetservice.TweetReplyRecordCollectionName).
+		Where("tweetId", "==", query.TweetId).
 		Where("createdAt", ">", startAt).
 		OrderBy("createdAt", firestore.Desc).
 		Limit(query.Limit).
@@ -41,14 +41,34 @@ func GetProfileFeed(ctx context.Context, query models.ProfileFeedQueryModel) ([]
 			log.Println("iter done")
 			break
 		}
+
 		if err != nil {
 			log.Println("error at iter")
 			return returnDefaultOnError(err)
 		}
-		var tweet models.Tweet
-		err = doc.DataTo(&tweet)
+
+		var replyRecord models.TweetReplyRecordModel
+		err = doc.DataTo(&replyRecord)
 		if err != nil {
-			log.Println("error cannot parse doc to tweet")
+			log.Println("error cannot parse doc to reply-record")
+			continue
+		}
+
+		tweetGetReq := models.TweetGetRequestModel{TweetId: replyRecord.ReplyTweetId}
+		tweetExists, err := tweetservice.GetTweetExists(ctx, tweetGetReq)
+		if err != nil {
+			log.Println("something went wrong when get-tweet-exists!")
+			continue
+		}
+
+		if !tweetExists {
+			log.Println("tweet doesn't exist")
+			continue
+		}
+
+		tweet, err := tweetservice.GetTweet(ctx, tweetGetReq)
+		if err != nil {
+			log.Println("error while getting tweet")
 			continue
 		}
 

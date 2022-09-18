@@ -29,5 +29,18 @@ func (t *TimelineController) AddControllerTo(router *mux.Router) {
 	}
 	subRouter.AddEndpoint(getProfileFeedWithAuth)
 
+	getRepliesFeedEndpoint := &utils.ApplicationEndpoint{
+		Handler: timelinehandlers.GetReplyFeedHandler,
+		Path:    "/get-replies",
+		Method:  http.MethodPost,
+	}
+	getRepliesFeedWithValidation := &utils.RequireValidation[models.ReplyFeedQueryModel]{
+		Endpoint: getRepliesFeedEndpoint,
+	}
+	getRepliesFeedWithAuth := &utils.RequireAuthentication{
+		Endpoint: getRepliesFeedWithValidation,
+	}
+	subRouter.AddEndpoint(getRepliesFeedWithAuth)
+
 	subRouter.Init()
 }
