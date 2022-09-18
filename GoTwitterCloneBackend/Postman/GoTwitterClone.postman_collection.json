@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"lumpydog212\",\r\n    \"fullName\": \"John Doe\",\r\n    \"email\": \"johndoe@gmail.com\",\r\n    \"password\": \"Pwd123#\"\r\n}",
+							"raw": "{\r\n    \"username\": \"kresnofatih\",\r\n    \"fullName\": \"Kresno Fatih\",\r\n    \"email\": \"kresnofatih@amazon.com\",\r\n    \"password\": \"Pwd123#\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -44,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"lycheedriver4\",\r\n    \"password\": \"Pwd123#\"\r\n}",
+							"raw": "{\r\n    \"username\": \"kresnofatih\",\r\n    \"password\": \"Pwd123#\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -106,7 +106,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMjhUMDc6NTY6MDQrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.9Iu-WjIQVEI0GnMwrCsSCpaReIRCWglimAjoWH8TXAs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMDlUMDc6MzY6NDkrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibG9jb2J1bm55MSJ9.DzA_Op3B_ekKjs2-C0lGP_eh65fjlFYCoY6V6qhVPRM",
 									"type": "string"
 								}
 							]
@@ -114,7 +114,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{httpType}}://{{domain}}/{{followControllerPrefix}}/start/locobunny1",
+							"raw": "{{httpType}}://{{domain}}/{{followControllerPrefix}}/start/lumpydog212",
 							"protocol": "{{httpType}}",
 							"host": [
 								"{{domain}}"
@@ -122,7 +122,7 @@
 							"path": [
 								"{{followControllerPrefix}}",
 								"start",
-								"locobunny1"
+								"lumpydog212"
 							]
 						}
 					},
@@ -136,7 +136,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMjhUMDc6NTY6MDQrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.9Iu-WjIQVEI0GnMwrCsSCpaReIRCWglimAjoWH8TXAs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMDlUMDc6MzY6NDkrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibG9jb2J1bm55MSJ9.DzA_Op3B_ekKjs2-C0lGP_eh65fjlFYCoY6V6qhVPRM",
 									"type": "string"
 								}
 							]
@@ -144,7 +144,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{httpType}}://{{domain}}/{{followControllerPrefix}}/stop/locobunny1",
+							"raw": "{{httpType}}://{{domain}}/{{followControllerPrefix}}/stop/lumpydog212",
 							"protocol": "{{httpType}}",
 							"host": [
 								"{{domain}}"
@@ -152,7 +152,7 @@
 							"path": [
 								"{{followControllerPrefix}}",
 								"stop",
-								"locobunny1"
+								"lumpydog212"
 							]
 						}
 					},
@@ -171,7 +171,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMjhUMTI6MzU6MDkrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.BlOJ4OtjPcMC39Z0VF3RSHC-UhvSKGkzzM-EmtdyV5k",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMThUMTk6MDI6MTIrMDc6MDAiLCJ0LXVzZXJuYW1lIjoia3Jlc25vZmF0aWgifQ.xpQzKDzBHx5Mt3OOS15F8S9XuhPRAe_ywXhR9HAeNCE",
 									"type": "string"
 								}
 							]
@@ -180,7 +180,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"hello world! im lycheedriver4\",\r\n    \"imageURL\": \"\"\r\n}",
+							"raw": "{\r\n    \"message\": \"kaneki is awesome!\",\r\n    \"imageURL\": \"https://images5.alphacoders.com/587/587597.jpg\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -209,7 +209,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMzFUMDc6Mjg6NDArMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.Zqz3keFwJaYtEoXjz1IAsVpURGpBdQuQkOxJ7emXQLI",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMThUMTk6MDI6MTIrMDc6MDAiLCJ0LXVzZXJuYW1lIjoia3Jlc25vZmF0aWgifQ.xpQzKDzBHx5Mt3OOS15F8S9XuhPRAe_ywXhR9HAeNCE",
 									"type": "string"
 								}
 							]
@@ -218,7 +218,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tweetId\": \"tweet#lycheedriver4#74de7caa-fcaa-4238-939e-5543b79365f3\",\r\n    \"username\": \"lycheedriver4\",\r\n    \"message\": \"test reply a quote of a quote\",\r\n    \"imageURL\": \"https://www.merdeka.com/trending/25-meme-lucu-terbaru-bikin-ngakak-cocok-jadi-penghilang-penat-amp-stres-setiap-hari.html\"\r\n}",
+							"raw": "{\r\n    \"tweetId\": \"tweet#kresnofatih#f00883b0-d0df-47f3-a5aa-7e1266d0e649\",\r\n    \"username\": \"kresnofatih\",\r\n    \"message\": \"test reply 3\",\r\n    \"imageURL\": \"https://www.merdeka.com/trending/25-meme-lucu-terbaru-bikin-ngakak-cocok-jadi-penghilang-penat-amp-stres-setiap-hari.html\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -247,7 +247,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMzFUMDg6MTU6NDkrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.Ac_dv6HWAigQwRk7roItfPXLckTy95PNqe9JFYisJFA",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMThUMTk6MDI6MTIrMDc6MDAiLCJ0LXVzZXJuYW1lIjoia3Jlc25vZmF0aWgifQ.xpQzKDzBHx5Mt3OOS15F8S9XuhPRAe_ywXhR9HAeNCE",
 									"type": "string"
 								}
 							]
@@ -256,7 +256,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tweetId\": \"tweet#lycheedriver4#68e8f21c-3290-4d50-9074-084d4d42f99d\",\r\n    \"username\": \"lycheedriver4\"\r\n}",
+							"raw": "{\r\n    \"tweetId\": \"tweet#kresnofatih#f00883b0-d0df-47f3-a5aa-7e1266d0e649\",\r\n    \"username\": \"kresnofatih\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -285,7 +285,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDgtMzFUMDg6Mjg6NTIrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibHljaGVlZHJpdmVyNCJ9.8mjexEdvKhCrFgx6fNpws0m0dCpj8uvxBHviBZszksE",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMThUMTk6MDI6MTIrMDc6MDAiLCJ0LXVzZXJuYW1lIjoia3Jlc25vZmF0aWgifQ.xpQzKDzBHx5Mt3OOS15F8S9XuhPRAe_ywXhR9HAeNCE",
 									"type": "string"
 								}
 							]
@@ -294,7 +294,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tweetId\": \"tweet#lycheedriver4#68e8f21c-3290-4d50-9074-084d4d42f99d\",\r\n    \"username\": \"lycheedriver4\",\r\n    \"message\": \"this is a quote of a reply02.\",\r\n    \"imageURL\": \"https://www.merdeka.com/trending/25-meme-lucu-terbaru-bikin-ngakak-cocok-jadi-penghilang-penat-amp-stres-setiap-hari.html\"\r\n}",
+							"raw": "{\r\n    \"tweetId\": \"tweet#kresnofatih#f00883b0-d0df-47f3-a5aa-7e1266d0e649\",\r\n    \"username\": \"kresnofatih\",\r\n    \"message\": \"this is a quote\",\r\n    \"imageURL\": \"https://www.merdeka.com/trending/25-meme-lucu-terbaru-bikin-ngakak-cocok-jadi-penghilang-penat-amp-stres-setiap-hari.html\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -310,6 +310,87 @@
 							"path": [
 								"{{tweetControllerPrefix}}",
 								"quote"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Timeline",
+			"item": [
+				{
+					"name": "GetProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMTFUMTk6NDI6MjIrMDc6MDAiLCJ0LXVzZXJuYW1lIjoia3Jlc25vZmF0aWgifQ.nEZH_dH2VjS_FzMhGig0rPwAfQUQKnJc-ieoPDYl0-Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"kresnofatih\",\r\n    \"limit\": 5,\r\n    \"startAt\": 1662896558679\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{httpType}}://{{domain}}/{{timelineControllerPrefix}}/get-profile",
+							"protocol": "{{httpType}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"{{timelineControllerPrefix}}",
+								"get-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetReplies",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMThUMTk6MzQ6NTIrMDc6MDAiLCJ0LXVzZXJuYW1lIjoia3Jlc25vZmF0aWgifQ.q1Ipc7d38-WkffmFsxTvgAtXzZDXT51MN4hVn36J9Mw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tweetId\": \"tweet#kresnofatih#f00883b0-d0df-47f3-a5aa-7e1266d0e649\",\r\n    \"limit\": 5,\r\n    \"startAt\": 1662896558679\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{httpType}}://{{domain}}/{{timelineControllerPrefix}}/get-replies",
+							"protocol": "{{httpType}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"{{timelineControllerPrefix}}",
+								"get-replies"
 							]
 						}
 					},

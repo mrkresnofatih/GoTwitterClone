@@ -51,6 +51,7 @@ type TweetRetweetActorModel struct {
 }
 
 type TweetReplyRecordModel struct {
-	UsernameStartsWith string            `json:"usernameStartsWith" firestore:"usernameStartsWith,omitempty"`
-	Replies            map[string]string `json:"replies" firestore:"replies"`
+	TweetId      string `json:"tweetId" firestore:"tweetId,omitempty"`
+	ReplyTweetId string `json:"replyTweetId" firestore:"replyTweetId,omitempty"`
+	CreatedAt    string `json:"createdAt" firestore:"createdAt,omitempty"`
 }
