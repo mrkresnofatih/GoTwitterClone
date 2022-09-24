@@ -11,21 +11,19 @@ import (
 
 func InitializeFollowerList(ctx context.Context, model models.FollowRequestModel) error {
 	fireStr := application.GetFirestoreInstance()
-	log.Println("firestore initialized")
-	followerListKey := fmt.Sprintf(followerListKeyFormat, model.Username)
-	startsWithKey := fmt.Sprintf(startsWithKeyFormat, model.FollowerUsername[:1]) // increase for more follower upper limit
+	followerListKey := fmt.Sprintf(followerListKeyFormat, model.Username, model.FollowerUsername[:1])
 
 	followerList := models.FollowerList{
 		Username: model.Username,
 		FollowerList: map[string]bool{
-			model.FollowerUsername : true,
+			model.FollowerUsername: true,
 		},
 		StartsWith: model.FollowerUsername[:1],
 	}
 
 	docRef := fireStr.
-		Collection(followerListKey).
-		Doc(startsWithKey)
+		Collection(followerListCollectionName).
+		Doc(followerListKey)
 	_, err := docRef.Set(ctx, followerList)
 	if err != nil {
 		log.Println("something went wrong")
@@ -36,20 +34,19 @@ func InitializeFollowerList(ctx context.Context, model models.FollowRequestModel
 
 func InitializeFollowingList(ctx context.Context, model models.FollowRequestModel) error {
 	fireStr := application.GetFirestoreInstance()
-	followingListKey := fmt.Sprintf(followingListKeyFormat, model.FollowerUsername)
-	startsWithKey := fmt.Sprintf(startsWithKeyFormat, model.Username[:1])
+	followingListKey := fmt.Sprintf(followingListKeyFormat, model.FollowerUsername, model.Username[:1])
 
 	followingList := models.FollowingList{
 		Username: model.FollowerUsername,
 		FollowingList: map[string]bool{
-			model.Username : true,
+			model.Username: true,
 		},
 		StartsWith: model.Username[:1],
 	}
 
 	_, err := fireStr.
-		Collection(followingListKey).
-		Doc(startsWithKey).
+		Collection(followingListCollectionName).
+		Doc(followingListKey).
 		Set(ctx, followingList)
 	if err != nil {
 		return errors.New("failed to create new following list")

@@ -11,11 +11,25 @@ import (
 	"mrkresnofatihdev/apps/gotwittercloneapp/models"
 )
 
-const followerListKeyFormat = "follower-list#%s"
-const followingListKeyFormat = "following-list#%s"
-const startsWithKeyFormat = "startsWith#%s"
+const followerListKeyFormat = "follower-list#%s#%s"
+const followingListKeyFormat = "following-list#%s#%s"
+
+const followerListCollectionName = "follower-list"
+const followingListCollectionName = "following-list"
 
 func StartFollowing(ctx context.Context, followRequest models.FollowRequestModel) error {
+	targetFollowIsNotSelf := followRequest.Username != followRequest.FollowerUsername
+	if !targetFollowIsNotSelf {
+		log.Println("target follow is self")
+		return errors.New("target follow is self")
+	}
+
+	targetFollowExists := playerservice.GetPlayerExists(ctx, followRequest.Username)
+	if !targetFollowExists {
+		log.Println("target player to follow does not exist!")
+		return errors.New("target follow does not exist")
+	}
+
 	alreadyFollowing := GetIsAlreadyFollowing(ctx, followRequest)
 	if alreadyFollowing {
 		log.Println("already following!")
@@ -30,6 +44,7 @@ func StartFollowing(ctx context.Context, followRequest models.FollowRequestModel
 			log.Println("InitializeFollowerList failed: " + err.Error())
 			return err
 		}
+		log.Println("initialized follower list successful")
 	} else {
 		err := populateFollowerList(ctx, followRequest)
 		if err != nil {
@@ -39,7 +54,7 @@ func StartFollowing(ctx context.Context, followRequest models.FollowRequestModel
 	}
 
 	userIncrementNumOfFollowersRequest := models.PlayerUpdateSocialStatsRequestModel{
-		Username: followRequest.Username,
+		Username:   followRequest.Username,
 		UpdateType: models.IncrementFollowerUpdateSocialStatsType,
 	}
 	err := playerservice.UpdatePlayerSocialStats(ctx, userIncrementNumOfFollowersRequest)
@@ -55,6 +70,7 @@ func StartFollowing(ctx context.Context, followRequest models.FollowRequestModel
 			log.Println("InitializeFollowingList failed: " + err.Error())
 			return err
 		}
+		log.Println("initialized following list successful")
 	} else {
 		err := populateFollowingList(ctx, followRequest)
 		if err != nil {
@@ -64,7 +80,7 @@ func StartFollowing(ctx context.Context, followRequest models.FollowRequestModel
 	}
 
 	followerIncrementNumOfFollowingsRequest := models.PlayerUpdateSocialStatsRequestModel{
-		Username: followRequest.FollowerUsername,
+		Username:   followRequest.FollowerUsername,
 		UpdateType: models.IncrementFollowingUpdateSocialStatsType,
 	}
 	err = playerservice.UpdatePlayerSocialStats(ctx, followerIncrementNumOfFollowingsRequest)
@@ -77,17 +93,19 @@ func StartFollowing(ctx context.Context, followRequest models.FollowRequestModel
 }
 
 func populateFollowerList(ctx context.Context, followRequest models.FollowRequestModel) error {
-	followerListKey := fmt.Sprintf(followerListKeyFormat, followRequest.Username)
-	startsWithKey := fmt.Sprintf(startsWithKeyFormat, followRequest.FollowerUsername[:1])
+	followerListKey := fmt.Sprintf(followerListKeyFormat, followRequest.Username, followRequest.FollowerUsername[:1])
 
 	fireStr := application.GetFirestoreInstance()
 
-	_, err := fireStr.Collection(followerListKey).Doc(startsWithKey).Update(ctx, []firestore.Update{
-		{
-			Path: fmt.Sprintf("followerList.%s", followRequest.FollowerUsername),
-			Value: true,
-		},
-	})
+	_, err := fireStr.
+		Collection(followerListCollectionName).
+		Doc(followerListKey).
+		Update(ctx, []firestore.Update{
+			{
+				Path:  fmt.Sprintf("followerList.%s", followRequest.FollowerUsername),
+				Value: true,
+			},
+		})
 	if err != nil {
 		log.Println("Add follower to follower-list failed: " + err.Error())
 		return errors.New("populate follower to target follower-list failed")
@@ -96,17 +114,19 @@ func populateFollowerList(ctx context.Context, followRequest models.FollowReques
 }
 
 func populateFollowingList(ctx context.Context, followRequest models.FollowRequestModel) error {
-	followingListKey := fmt.Sprintf(followingListKeyFormat, followRequest.FollowerUsername)
-	startsWithKey := fmt.Sprintf(startsWithKeyFormat, followRequest.Username[:1])
+	followingListKey := fmt.Sprintf(followingListKeyFormat, followRequest.FollowerUsername, followRequest.Username[:1])
 
 	fireStr := application.GetFirestoreInstance()
 
-	_, err := fireStr.Collection(followingListKey).Doc(startsWithKey).Update(ctx, []firestore.Update{
-		{
-			Path: fmt.Sprintf("followingList.%s", followRequest.Username),
-			Value: true,
-		},
-	})
+	_, err := fireStr.
+		Collection(followingListCollectionName).
+		Doc(followingListKey).
+		Update(ctx, []firestore.Update{
+			{
+				Path:  fmt.Sprintf("followingList.%s", followRequest.Username),
+				Value: true,
+			},
+		})
 	if err != nil {
 		return errors.New("populate following to target following-list failed")
 	}

@@ -16,6 +16,19 @@ func (t *TimelineController) AddControllerTo(router *mux.Router) {
 		PathPrefix: "/timeline",
 	}
 
+	getHomeFeedEndpoint := &utils.ApplicationEndpoint{
+		Handler: timelinehandlers.GetHomeFeedHandler,
+		Path:    "/get-home",
+		Method:  http.MethodPost,
+	}
+	getHomeFeedWithValidation := &utils.RequireValidation[models.HomeFeedQueryModel]{
+		Endpoint: getHomeFeedEndpoint,
+	}
+	getHomeFeedWithAuth := &utils.RequireAuthentication{
+		Endpoint: getHomeFeedWithValidation,
+	}
+	subRouter.AddEndpoint(getHomeFeedWithAuth)
+
 	getProfileFeedEndpoint := &utils.ApplicationEndpoint{
 		Handler: timelinehandlers.GetProfileFeedHandler,
 		Path:    "/get-profile",

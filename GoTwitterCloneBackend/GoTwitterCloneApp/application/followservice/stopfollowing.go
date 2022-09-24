@@ -34,7 +34,7 @@ func StopFollowing(ctx context.Context, followRequest models.FollowRequestModel)
 	}
 
 	decrementFollowerCountReq := models.PlayerUpdateSocialStatsRequestModel{
-		Username: followRequest.Username,
+		Username:   followRequest.Username,
 		UpdateType: models.DecrementFollowerUpdateSocialStatsType,
 	}
 	err = playerservice.UpdatePlayerSocialStats(ctx, decrementFollowerCountReq)
@@ -43,7 +43,7 @@ func StopFollowing(ctx context.Context, followRequest models.FollowRequestModel)
 	}
 
 	decrementFollowingCountReq := models.PlayerUpdateSocialStatsRequestModel{
-		Username: followRequest.FollowerUsername,
+		Username:   followRequest.FollowerUsername,
 		UpdateType: models.DecrementFollowingUpdateSocialStatsType,
 	}
 	err = playerservice.UpdatePlayerSocialStats(ctx, decrementFollowingCountReq)
@@ -57,15 +57,17 @@ func StopFollowing(ctx context.Context, followRequest models.FollowRequestModel)
 func removeFollowerFromFollowerList(ctx context.Context, username, followerUsername string) error {
 	fireStr := application.GetFirestoreInstance()
 
-	followerListKey := fmt.Sprintf(followerListKeyFormat, username)
-	startsWithKey := fmt.Sprintf(startsWithKeyFormat, followerUsername[:1])
+	followerListKey := fmt.Sprintf(followerListKeyFormat, username, followerUsername[:1])
 
-	_, err := fireStr.Collection(followerListKey).Doc(startsWithKey).Update(ctx, []firestore.Update{
-		{
-			Path: fmt.Sprintf("followerList.%s", followerUsername),
-			Value: firestore.Delete,
-		},
-	})
+	_, err := fireStr.
+		Collection(followerListCollectionName).
+		Doc(followerListKey).
+		Update(ctx, []firestore.Update{
+			{
+				Path:  fmt.Sprintf("followerList.%s", followerUsername),
+				Value: firestore.Delete,
+			},
+		})
 	if err != nil {
 		return errors.New("failed to delete follower from follower-list")
 	}
@@ -75,19 +77,17 @@ func removeFollowerFromFollowerList(ctx context.Context, username, followerUsern
 func removeFollowingFromFollowingList(ctx context.Context, username, followerUsername string) error {
 	fireStr := application.GetFirestoreInstance()
 
-	followingListKey := fmt.Sprintf(followingListKeyFormat, followerUsername)
-	startsWithKey := fmt.Sprintf(startsWithKeyFormat, username[:1])
+	followingListKey := fmt.Sprintf(followingListKeyFormat, followerUsername, username[:1])
 
 	_, err := fireStr.
-		Collection(followingListKey).
-		Doc(startsWithKey).
+		Collection(followingListCollectionName).
+		Doc(followingListKey).
 		Update(ctx, []firestore.Update{
-		{
-			Path: fmt.Sprintf("followingList.%s", username),
-			Value: firestore.Delete,
-		},
-	})
-
+			{
+				Path:  fmt.Sprintf("followingList.%s", username),
+				Value: firestore.Delete,
+			},
+		})
 	if err != nil {
 		return errors.New("failed to delete following from following-list")
 	}

@@ -20,7 +20,7 @@ func GetProfileFeed(ctx context.Context, query models.ProfileFeedQueryModel) ([]
 
 	var tweets []models.Tweet
 
-	log.Println("get iter")
+	log.Println("get iter get-profile-feed")
 
 	startAt := fmt.Sprintf("%015d", query.StartAt)
 	maxLimit := 20
@@ -38,11 +38,11 @@ func GetProfileFeed(ctx context.Context, query models.ProfileFeedQueryModel) ([]
 	for {
 		doc, err := iter.Next()
 		if err == iterator.Done {
-			log.Println("iter done")
+			log.Println("iter get-profile-feed done")
 			break
 		}
 		if err != nil {
-			log.Println("error at iter")
+			log.Println("error at iter " + err.Error())
 			return returnDefaultOnError(err)
 		}
 		var tweet models.Tweet
