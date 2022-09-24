@@ -57,9 +57,9 @@ type PlayerUpdateSocialStatsRequestModel struct {
 
 type PlayerCreateRequestModel struct {
 	Email    string `json:"email" validate:"required,email"`
-	Username string `json:"username" validate:"required"`
-	FullName string `json:"fullName" validate:"required"`
-	Password string `json:"password" validate:"required"`
+	Username string `json:"username" validate:"required,alphanum,min=6,max=20"`
+	FullName string `json:"fullName" validate:"required,min=6,max=30"`
+	Password string `json:"password" validate:"required,containsany=abscdefghijklmnopqrstuvwxyz,containsany=ABCDEFGHIJKLMNOPQRSTUVWXYZ,containsany=1234567890,containsany=!@#$%^&*(),min=6,max=20"`
 }
 
 type PlayerCreateResponseModel struct {

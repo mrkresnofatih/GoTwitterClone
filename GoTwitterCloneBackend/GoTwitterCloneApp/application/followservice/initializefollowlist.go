@@ -11,14 +11,14 @@ import (
 
 func InitializeFollowerList(ctx context.Context, model models.FollowRequestModel) error {
 	fireStr := application.GetFirestoreInstance()
-	followerListKey := fmt.Sprintf(followerListKeyFormat, model.Username, model.FollowerUsername[:1])
+	followerListKey := fmt.Sprintf(followerListKeyFormat, model.Username, model.FollowerUsername[:6])
 
 	followerList := models.FollowerList{
 		Username: model.Username,
 		FollowerList: map[string]bool{
 			model.FollowerUsername: true,
 		},
-		StartsWith: model.FollowerUsername[:1],
+		StartsWith: model.FollowerUsername[:6],
 	}
 
 	docRef := fireStr.
@@ -34,14 +34,14 @@ func InitializeFollowerList(ctx context.Context, model models.FollowRequestModel
 
 func InitializeFollowingList(ctx context.Context, model models.FollowRequestModel) error {
 	fireStr := application.GetFirestoreInstance()
-	followingListKey := fmt.Sprintf(followingListKeyFormat, model.FollowerUsername, model.Username[:1])
+	followingListKey := fmt.Sprintf(followingListKeyFormat, model.FollowerUsername, model.Username[:6])
 
 	followingList := models.FollowingList{
 		Username: model.FollowerUsername,
 		FollowingList: map[string]bool{
 			model.Username: true,
 		},
-		StartsWith: model.Username[:1],
+		StartsWith: model.Username[:6],
 	}
 
 	_, err := fireStr.

@@ -198,7 +198,7 @@ func GetHomeFeedQueryRunning(ctx context.Context, username string) (bool, error)
 		log.Println("get-home-feed-query failed")
 		return false, err
 	}
-	nextQueryTime := homeFeedQueryData.LastQueryTime + 60000
+	nextQueryTime := homeFeedQueryData.LastQueryTime + 120000
 	return nextQueryTime > time.Now().UnixMilli(), nil
 }
 
