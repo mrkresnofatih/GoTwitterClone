@@ -9,7 +9,7 @@ import (
 
 func GetFollowerListExists(ctx context.Context, model models.FollowRequestModel) bool {
 	fireStr := application.GetFirestoreInstance()
-	followerListKey := fmt.Sprintf(followerListKeyFormat, model.Username, model.FollowerUsername[:1])
+	followerListKey := fmt.Sprintf(followerListKeyFormat, model.Username, model.FollowerUsername[:6])
 
 	followerList, err := fireStr.
 		Collection(followerListCollectionName).
@@ -23,7 +23,7 @@ func GetFollowerListExists(ctx context.Context, model models.FollowRequestModel)
 
 func GetFollowingListExists(ctx context.Context, model models.FollowRequestModel) bool {
 	fireStr := application.GetFirestoreInstance()
-	followingListKey := fmt.Sprintf(followingListKeyFormat, model.FollowerUsername, model.Username[:1])
+	followingListKey := fmt.Sprintf(followingListKeyFormat, model.FollowerUsername, model.Username[:6])
 
 	followingList, err := fireStr.
 		Collection(followingListCollectionName).

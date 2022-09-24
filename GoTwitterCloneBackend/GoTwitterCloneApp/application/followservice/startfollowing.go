@@ -93,7 +93,7 @@ func StartFollowing(ctx context.Context, followRequest models.FollowRequestModel
 }
 
 func populateFollowerList(ctx context.Context, followRequest models.FollowRequestModel) error {
-	followerListKey := fmt.Sprintf(followerListKeyFormat, followRequest.Username, followRequest.FollowerUsername[:1])
+	followerListKey := fmt.Sprintf(followerListKeyFormat, followRequest.Username, followRequest.FollowerUsername[:6])
 
 	fireStr := application.GetFirestoreInstance()
 
@@ -114,7 +114,7 @@ func populateFollowerList(ctx context.Context, followRequest models.FollowReques
 }
 
 func populateFollowingList(ctx context.Context, followRequest models.FollowRequestModel) error {
-	followingListKey := fmt.Sprintf(followingListKeyFormat, followRequest.FollowerUsername, followRequest.Username[:1])
+	followingListKey := fmt.Sprintf(followingListKeyFormat, followRequest.FollowerUsername, followRequest.Username[:6])
 
 	fireStr := application.GetFirestoreInstance()
 

@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"curiouscat9\",\r\n    \"fullName\": \"Kresno Fatih\",\r\n    \"email\": \"kresnofatih@amazon.com\",\r\n    \"password\": \"Pwd123#\"\r\n}",
+							"raw": "{\r\n    \"username\": \"icetrae\",\r\n    \"fullName\": \"Trae Young\",\r\n    \"email\": \"traeyg@hawks.com\",\r\n    \"password\": \"Pwd123#\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -44,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"fighter12\",\r\n    \"password\": \"Pwd123#\"\r\n}",
+							"raw": "{\r\n    \"username\": \"icetrae\",\r\n    \"password\": \"Pwd123#\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -106,7 +106,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMjRUMDg6NTY6MTYrMDc6MDAiLCJ0LXVzZXJuYW1lIjoiZmlnaHRlcjEyIn0.nvHoYshF4Ezh24v4Qyzu0FSDFBUOQjyjnATgvWHPtTI",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMjRUMjE6MDg6NDArMDc6MDAiLCJ0LXVzZXJuYW1lIjoia29iZWJyeWFudCJ9.-oLwOIaUAVZvkWfOUKAMYp3uCZU-zyLE4UxNZ1q1ZdM",
 									"type": "string"
 								}
 							]
@@ -114,7 +114,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{httpType}}://{{domain}}/{{followControllerPrefix}}/start/kresnofatih",
+							"raw": "{{httpType}}://{{domain}}/{{followControllerPrefix}}/start/icetrae",
 							"protocol": "{{httpType}}",
 							"host": [
 								"{{domain}}"
@@ -122,7 +122,7 @@
 							"path": [
 								"{{followControllerPrefix}}",
 								"start",
-								"kresnofatih"
+								"icetrae"
 							]
 						}
 					},
@@ -157,6 +157,82 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GetProfileFollowers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMjRUMjE6MTE6MjcrMDc6MDAiLCJ0LXVzZXJuYW1lIjoiaWNldHJhZSJ9.GS9UdI1Kdq3dfSVMLI8ocIEKV9MYXPkw5ek_K1zEXuc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"icetrae\",\r\n    \"startsWith\": \"0\",\r\n    \"limit\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{httpType}}://{{domain}}/{{followControllerPrefix}}/get-followers",
+							"protocol": "{{httpType}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"{{followControllerPrefix}}",
+								"get-followers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProfileFollowings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMjRUMjE6MTE6MjcrMDc6MDAiLCJ0LXVzZXJuYW1lIjoiaWNldHJhZSJ9.GS9UdI1Kdq3dfSVMLI8ocIEKV9MYXPkw5ek_K1zEXuc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"icetrae\",\r\n    \"startsWith\": \"0\",\r\n    \"limit\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{httpType}}://{{domain}}/{{followControllerPrefix}}/get-followings",
+							"protocol": "{{httpType}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"{{followControllerPrefix}}",
+								"get-followings"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -171,7 +247,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMjRUMDk6MDM6NTgrMDc6MDAiLCJ0LXVzZXJuYW1lIjoia3Jlc25vZmF0aWgifQ.IZHG62685gejrsWIWdRRRaFrRbkD-3c25aqN2sYfvWY",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMjRUMjE6MTE6MjcrMDc6MDAiLCJ0LXVzZXJuYW1lIjoiaWNldHJhZSJ9.GS9UdI1Kdq3dfSVMLI8ocIEKV9MYXPkw5ek_K1zEXuc",
 									"type": "string"
 								}
 							]
@@ -180,7 +256,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"kaneki is unbelievable!\",\r\n    \"imageURL\": \"https://images5.alphacoders.com/587/587597.jpg\"\r\n}",
+							"raw": "{\r\n    \"message\": \"right here right now\",\r\n    \"imageURL\": \"https://images5.alphacoders.com/587/587597.jpg\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -366,7 +442,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMjRUMTE6MTQ6NTYrMDc6MDAiLCJ0LXVzZXJuYW1lIjoiZmlnaHRlcjEyIn0.lzZ33tjLmvd4Euje_l-wzqTiEf9OI_GOc-CdelE5jAU",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMjRUMjE6MTE6MjcrMDc6MDAiLCJ0LXVzZXJuYW1lIjoiaWNldHJhZSJ9.GS9UdI1Kdq3dfSVMLI8ocIEKV9MYXPkw5ek_K1zEXuc",
 									"type": "string"
 								}
 							]

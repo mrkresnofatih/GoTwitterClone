@@ -16,7 +16,7 @@ func GetIsAlreadyFollowing(ctx context.Context, req models.FollowRequestModel) b
 
 	fireStr := application.GetFirestoreInstance()
 
-	followerListKey := fmt.Sprintf(followerListKeyFormat, req.Username, req.FollowerUsername[:1])
+	followerListKey := fmt.Sprintf(followerListKeyFormat, req.Username, req.FollowerUsername[:6])
 
 	followerListData, err := fireStr.
 		Collection(followerListCollectionName).

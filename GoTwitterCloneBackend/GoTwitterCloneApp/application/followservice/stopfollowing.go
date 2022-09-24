@@ -57,7 +57,7 @@ func StopFollowing(ctx context.Context, followRequest models.FollowRequestModel)
 func removeFollowerFromFollowerList(ctx context.Context, username, followerUsername string) error {
 	fireStr := application.GetFirestoreInstance()
 
-	followerListKey := fmt.Sprintf(followerListKeyFormat, username, followerUsername[:1])
+	followerListKey := fmt.Sprintf(followerListKeyFormat, username, followerUsername[:6])
 
 	_, err := fireStr.
 		Collection(followerListCollectionName).
@@ -77,7 +77,7 @@ func removeFollowerFromFollowerList(ctx context.Context, username, followerUsern
 func removeFollowingFromFollowingList(ctx context.Context, username, followerUsername string) error {
 	fireStr := application.GetFirestoreInstance()
 
-	followingListKey := fmt.Sprintf(followingListKeyFormat, followerUsername, username[:1])
+	followingListKey := fmt.Sprintf(followingListKeyFormat, followerUsername, username[:6])
 
 	_, err := fireStr.
 		Collection(followingListCollectionName).
