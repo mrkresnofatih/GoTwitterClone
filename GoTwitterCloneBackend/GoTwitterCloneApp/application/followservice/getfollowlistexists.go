@@ -9,12 +9,11 @@ import (
 
 func GetFollowerListExists(ctx context.Context, model models.FollowRequestModel) bool {
 	fireStr := application.GetFirestoreInstance()
-	followerListKey := fmt.Sprintf(followerListKeyFormat, model.Username)
-	startsWithKey := fmt.Sprintf(startsWithKeyFormat, model.FollowerUsername[:1]) // increase for more follower upper limit
+	followerListKey := fmt.Sprintf(followerListKeyFormat, model.Username, model.FollowerUsername[:1])
 
 	followerList, err := fireStr.
-		Collection(followerListKey).
-		Doc(startsWithKey).
+		Collection(followerListCollectionName).
+		Doc(followerListKey).
 		Get(ctx)
 	if err != nil {
 		return false
@@ -24,12 +23,11 @@ func GetFollowerListExists(ctx context.Context, model models.FollowRequestModel)
 
 func GetFollowingListExists(ctx context.Context, model models.FollowRequestModel) bool {
 	fireStr := application.GetFirestoreInstance()
-	followingListKey := fmt.Sprintf(followingListKeyFormat, model.FollowerUsername)
-	startsWithKey := fmt.Sprintf(startsWithKeyFormat, model.Username[:1])
+	followingListKey := fmt.Sprintf(followingListKeyFormat, model.FollowerUsername, model.Username[:1])
 
 	followingList, err := fireStr.
-		Collection(followingListKey).
-		Doc(startsWithKey).
+		Collection(followingListCollectionName).
+		Doc(followingListKey).
 		Get(ctx)
 	if err != nil {
 		return false

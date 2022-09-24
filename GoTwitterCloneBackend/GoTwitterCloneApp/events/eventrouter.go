@@ -25,6 +25,9 @@ func GetEventHandlers() map[string]func(delivery amqp091.Delivery) {
 	recordReplyTweetEvtHandlerInstance := BaseEventHandler[models.Tweet]{
 		ExecutorFunc: eventhandlers.RecordReplyTweetEventHandler,
 	}
+	runHomeFeedQueryEvtHandlerInstance := BaseEventHandler[string]{
+		ExecutorFunc: eventhandlers.RunGetHomeQueryEventHandler,
+	}
 
 	return map[string]func(delivery amqp091.Delivery){
 		FollowEventHandlerName:                followEvtHandlerInstance.GetHandler(),
@@ -33,6 +36,7 @@ func GetEventHandlers() map[string]func(delivery amqp091.Delivery) {
 		IncrementReplyCountEventHandlerName:   incrementReplyCountEvtHandlerInstance.GetHandler(),
 		IncrementQuoteCountEventHandlerName:   incrementQuoteCountEvtHandlerInstance.GetHandler(),
 		RecordReplyTweetEventHandlerName:      recordReplyTweetEvtHandlerInstance.GetHandler(),
+		RunHomeFeedQueryEventHandlerName:      runHomeFeedQueryEvtHandlerInstance.GetHandler(),
 	}
 }
 
@@ -40,6 +44,8 @@ const FollowEventHandlerName = "FollowEvtHandler"
 const UnfollowEventHandlerName = "UnfollowEvtHandler"
 
 const IncrementRetweetCountEventHandlerName = "IncrementRetweetCountEvtHandler"
-const IncrementReplyCountEventHandlerName = "IncrementReplyCountEventHandler"
-const IncrementQuoteCountEventHandlerName = "IncrementQuoteCountEventHandler"
-const RecordReplyTweetEventHandlerName = "RecordReplyTweetEventHandler"
+const IncrementReplyCountEventHandlerName = "IncrementReplyCountEvtHandler"
+const IncrementQuoteCountEventHandlerName = "IncrementQuoteCountEvtHandler"
+const RecordReplyTweetEventHandlerName = "RecordReplyTweetEvtHandler"
+
+const RunHomeFeedQueryEventHandlerName = "RunHomeFeedQueryEvtHandlerName"

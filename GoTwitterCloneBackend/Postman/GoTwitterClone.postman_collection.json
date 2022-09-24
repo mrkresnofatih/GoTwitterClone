@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"kresnofatih\",\r\n    \"fullName\": \"Kresno Fatih\",\r\n    \"email\": \"kresnofatih@amazon.com\",\r\n    \"password\": \"Pwd123#\"\r\n}",
+							"raw": "{\r\n    \"username\": \"curiouscat9\",\r\n    \"fullName\": \"Kresno Fatih\",\r\n    \"email\": \"kresnofatih@amazon.com\",\r\n    \"password\": \"Pwd123#\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -44,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"kresnofatih\",\r\n    \"password\": \"Pwd123#\"\r\n}",
+							"raw": "{\r\n    \"username\": \"fighter12\",\r\n    \"password\": \"Pwd123#\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -106,7 +106,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMDlUMDc6MzY6NDkrMDc6MDAiLCJ0LXVzZXJuYW1lIjoibG9jb2J1bm55MSJ9.DzA_Op3B_ekKjs2-C0lGP_eh65fjlFYCoY6V6qhVPRM",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMjRUMDg6NTY6MTYrMDc6MDAiLCJ0LXVzZXJuYW1lIjoiZmlnaHRlcjEyIn0.nvHoYshF4Ezh24v4Qyzu0FSDFBUOQjyjnATgvWHPtTI",
 									"type": "string"
 								}
 							]
@@ -114,7 +114,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{httpType}}://{{domain}}/{{followControllerPrefix}}/start/lumpydog212",
+							"raw": "{{httpType}}://{{domain}}/{{followControllerPrefix}}/start/kresnofatih",
 							"protocol": "{{httpType}}",
 							"host": [
 								"{{domain}}"
@@ -122,7 +122,7 @@
 							"path": [
 								"{{followControllerPrefix}}",
 								"start",
-								"lumpydog212"
+								"kresnofatih"
 							]
 						}
 					},
@@ -171,7 +171,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMThUMTk6MDI6MTIrMDc6MDAiLCJ0LXVzZXJuYW1lIjoia3Jlc25vZmF0aWgifQ.xpQzKDzBHx5Mt3OOS15F8S9XuhPRAe_ywXhR9HAeNCE",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMjRUMDk6MDM6NTgrMDc6MDAiLCJ0LXVzZXJuYW1lIjoia3Jlc25vZmF0aWgifQ.IZHG62685gejrsWIWdRRRaFrRbkD-3c25aqN2sYfvWY",
 									"type": "string"
 								}
 							]
@@ -180,7 +180,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"kaneki is awesome!\",\r\n    \"imageURL\": \"https://images5.alphacoders.com/587/587597.jpg\"\r\n}",
+							"raw": "{\r\n    \"message\": \"kaneki is unbelievable!\",\r\n    \"imageURL\": \"https://images5.alphacoders.com/587/587597.jpg\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -328,7 +328,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMTFUMTk6NDI6MjIrMDc6MDAiLCJ0LXVzZXJuYW1lIjoia3Jlc25vZmF0aWgifQ.nEZH_dH2VjS_FzMhGig0rPwAfQUQKnJc-ieoPDYl0-Q",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMjRUMTE6MTQ6NTYrMDc6MDAiLCJ0LXVzZXJuYW1lIjoiZmlnaHRlcjEyIn0.lzZ33tjLmvd4Euje_l-wzqTiEf9OI_GOc-CdelE5jAU",
 									"type": "string"
 								}
 							]
@@ -353,6 +353,44 @@
 							"path": [
 								"{{timelineControllerPrefix}}",
 								"get-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetHome",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0LWV4cGlyZXNBdCI6IjIwMjItMDktMjRUMTE6MTQ6NTYrMDc6MDAiLCJ0LXVzZXJuYW1lIjoiZmlnaHRlcjEyIn0.lzZ33tjLmvd4Euje_l-wzqTiEf9OI_GOc-CdelE5jAU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"limit\": 5,\r\n    \"collectedAt\": 1662769844072\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{httpType}}://{{domain}}/{{timelineControllerPrefix}}/get-home",
+							"protocol": "{{httpType}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"{{timelineControllerPrefix}}",
+								"get-home"
 							]
 						}
 					},

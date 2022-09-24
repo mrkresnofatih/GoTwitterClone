@@ -14,5 +14,11 @@ type FollowingList struct {
 
 type FollowRequestModel struct {
 	FollowerUsername string
-	Username string
+	Username         string
+}
+
+type FollowListQueryModel struct {
+	Username   string `json:"username" validation:"required"`
+	StartsWith string `json:"startsWith" validation:"required"`
+	Limit      int    `json:"limit" validation:"required,max=25"`
 }
